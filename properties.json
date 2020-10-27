@@ -1,0 +1,72 @@
+{
+  "id": "boolnet",
+  "name": "BoolNet",
+  "version": "2.1.5",
+  "description": "R package for generation, reconstruction, simulation and analysis of synchronous, asynchronous and probabilistic Boolean networks.",
+  "url": "https://sysbio.uni-ulm.de/?Software:BoolNet",
+  "dockerHubImageId": "docker.io/biosimulators/boolnet:2.1.5",
+  "format": {
+    "name": "Docker Image",
+    "version": "1.2",
+    "spec_url": "https://github.com/moby/moby/blob/master/image/spec/v1.2.md"
+  },
+  "authors": [{
+      "firstName": "Christoph",
+      "middleName": null,
+      "lastName": "Müssel"
+    },
+    {
+      "firstName": "Martin",
+      "middleName": null,
+      "lastName": "Hopfensitz"
+    },
+    {
+      "firstName": "Hans",
+      "middleName": "A.",
+      "lastName": "Kestler"
+    },
+    {
+      "firstName": "Dao",
+      "middleName": null,
+      "lastName": "Zhou"
+    },
+    {
+      "firstName": "Armin",
+      "middleName": null,
+      "lastName": "Biere"
+    },
+    {
+      "firstName": "Troy",
+      "middleName": "D.",
+      "lastName": "Hanson"
+    }
+  ],
+  "references": {
+    "identifiers": [],
+    "citations": [{
+        "title": "BoolNet—an R package for generation, reconstruction and analysis of Boolean networks",
+        "authors": "Christoph Müssel, Martin Hopfensitz & Hans A. Kestler",
+        "journal": "Bioinformatics",
+        "volume": 26,
+        "issue": 10,
+        "pages": "1378-1380",
+        "year": 2010,
+        "identifiers": [{
+            "namespace": "doi",
+            "id": "10.1093/bioinformatics/btq124",
+            "url": "https://doi.org/10.1093/bioinformatics/btq124"
+          }
+        ]
+      }
+    ]
+  },
+  "license": "Artistic-2.0",
+  "algorithms": [
+  ],
+  "created": "2020-10-261T12:00:00Z",
+  "updated": "2020-10-26T12:00:00Z",
+  "biosimulators": {
+    "schemaVersion": "1.0.0",
+    "imageVersion": "1.0.0"
+  }
+}
