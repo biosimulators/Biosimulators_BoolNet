@@ -59,7 +59,10 @@
       }
     ]
   },
-  "license": "Artistic-2.0",
+  "license": {
+    "namespace": "SPDX",
+    "id": "Artistic-2.0"
+  },
   "algorithms": [
   ],
   "created": "2020-10-28T12:00:00Z",
