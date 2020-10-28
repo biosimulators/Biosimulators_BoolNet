@@ -41,8 +41,64 @@
     }
   ],
   "references": {
-    "identifiers": [],
+    "identifiers": [{
+      "namespace": "cran",
+      "id": "BoolNet",
+      "url": "https://cran.r-project.org/web/packages/BoolNet"
+    }],
     "citations": [{
+      "title": "BoolNet—an R package for generation, reconstruction and analysis of Boolean networks",
+      "authors": "Christoph Müssel, Martin Hopfensitz & Hans A. Kestler",
+      "journal": "Bioinformatics",
+      "volume": 26,
+      "issue": 10,
+      "pages": "1378-1380",
+      "year": 2010,
+      "identifiers": [{
+        "namespace": "doi",
+        "id": "10.1093/bioinformatics/btq124",
+        "url": "https://doi.org/10.1093/bioinformatics/btq124"
+      }]
+    }]
+  },
+  "license": {
+    "namespace": "SPDX",
+    "id": "Artistic-2.0"
+  },
+  "algorithms": [{
+      "id": "synchronous",
+      "name": "time series with synchronous state transitions",
+      "kisaoId": {
+        "namespace": "KISAO",
+        "id": "KISAO_0000449"
+      },
+      "modelingFrameworks": [{
+        "namespace": "SBO",
+        "id": "SBO_0000547"
+      }],
+      "modelFormats": [{
+        "namespace": "EDAM",
+        "id": "format_2585"
+      }],
+      "simulationFormats": [{
+        "namespace": "EDAM",
+        "id": "format_3685"
+      }],
+      "archiveFormats": [{
+        "namespace": "EDAM",
+        "id": "format_3686"
+      }],
+      "parameters": [{
+        "id": "noiseLevel",
+        "name": "standard deviation of the Gaussian noise which is added to each predicted species level",
+        "kisaoId": {
+          "namespace": "KISAO",
+          "id": "KISAO_0000201"
+        },
+        "type": "float",
+        "value": 0.0
+      }],
+      "citations": [{
         "title": "BoolNet—an R package for generation, reconstruction and analysis of Boolean networks",
         "authors": "Christoph Müssel, Martin Hopfensitz & Hans A. Kestler",
         "journal": "Bioinformatics",
@@ -51,19 +107,119 @@
         "pages": "1378-1380",
         "year": 2010,
         "identifiers": [{
-            "namespace": "doi",
-            "id": "10.1093/bioinformatics/btq124",
-            "url": "https://doi.org/10.1093/bioinformatics/btq124"
-          }
-        ]
-      }
-    ]
-  },
-  "license": {
-    "namespace": "SPDX",
-    "id": "Artistic-2.0"
-  },
-  "algorithms": [
+          "namespace": "doi",
+          "id": "10.1093/bioinformatics/btq124",
+          "url": "https://doi.org/10.1093/bioinformatics/btq124"
+        }]
+      }]
+    },
+    {
+      "id": "asynchronous",
+      "name": "time series with asynchronous state transitions",
+      "kisaoId": {
+        "namespace": "KISAO",
+        "id": "KISAO_0000450"
+      },
+      "modelingFrameworks": [{
+        "namespace": "SBO",
+        "id": "SBO_0000547"
+      }],
+      "modelFormats": [{
+        "namespace": "EDAM",
+        "id": "format_2585"
+      }],
+      "simulationFormats": [{
+        "namespace": "EDAM",
+        "id": "format_3685"
+      }],
+      "archiveFormats": [{
+        "namespace": "EDAM",
+        "id": "format_3686"
+      }],
+      "parameters": [{
+          "id": "geneProbabilities",
+          "name": "JSON-encoded map ({[speciesId: string]: [probability: float]}) of the probability of each species to be chosen for the next state transition",
+          "kisaoId": {
+            "namespace": "KISAO",
+            "id": "KISAO_0000243"
+          },
+          "type": "string",
+          "value": null
+        },
+        {
+          "id": "noiseLevel",
+          "name": "standard deviation of the Gaussian noise which is added to each predicted species level",
+          "kisaoId": {
+            "namespace": "KISAO",
+            "id": "KISAO_0000201"
+          },
+          "type": "float",
+          "value": 0.0
+        }
+      ],
+      "citations": [{
+        "title": "BoolNet—an R package for generation, reconstruction and analysis of Boolean networks",
+        "authors": "Christoph Müssel, Martin Hopfensitz & Hans A. Kestler",
+        "journal": "Bioinformatics",
+        "volume": 26,
+        "issue": 10,
+        "pages": "1378-1380",
+        "year": 2010,
+        "identifiers": [{
+          "namespace": "doi",
+          "id": "10.1093/bioinformatics/btq124",
+          "url": "https://doi.org/10.1093/bioinformatics/btq124"
+        }]
+      }]
+    },
+    {
+      "id": "probabilistic",
+      "name": "time series with probabilistic state transitions",
+      "kisaoId": {
+        "namespace": "KISAO",
+        "id": "KISAO_0000448"
+      },
+      "modelingFrameworks": [{
+        "namespace": "SBO",
+        "id": "SBO_0000547"
+      }],
+      "modelFormats": [{
+        "namespace": "EDAM",
+        "id": "format_2585"
+      }],
+      "simulationFormats": [{
+        "namespace": "EDAM",
+        "id": "format_3685"
+      }],
+      "archiveFormats": [{
+        "namespace": "EDAM",
+        "id": "format_3686"
+      }],
+      "parameters": [{
+        "id": "noiseLevel",
+        "name": "standard deviation of the Gaussian noise which is added to each predicted species level",
+        "kisaoId": {
+          "namespace": "KISAO",
+          "id": "KISAO_0000201"
+        },
+        "type": "float",
+        "value": 0.0
+      }],
+      "citations": [{
+        "title": "BoolNet—an R package for generation, reconstruction and analysis of Boolean networks",
+        "authors": "Christoph Müssel, Martin Hopfensitz & Hans A. Kestler",
+        "journal": "Bioinformatics",
+        "volume": 26,
+        "issue": 10,
+        "pages": "1378-1380",
+        "year": 2010,
+        "identifiers": [{
+          "namespace": "doi",
+          "id": "10.1093/bioinformatics/btq124",
+          "url": "https://doi.org/10.1093/bioinformatics/btq124"
+        }]
+      }]
+    }
   ],
   "created": "2020-10-28T12:00:00Z",
   "updated": "2020-10-28T12:00:00Z",
