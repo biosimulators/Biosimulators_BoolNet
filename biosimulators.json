@@ -93,7 +93,7 @@
         "name": "standard deviation of the Gaussian noise which is added to each predicted species level",
         "kisaoId": {
           "namespace": "KISAO",
-          "id": "KISAO_0000201"
+          "id": "KISAO_0000572"
         },
         "type": "float",
         "value": 0.0
@@ -141,7 +141,7 @@
           "name": "JSON-encoded map ({[speciesId: string]: [probability: float]}) of the probability of each species to be chosen for the next state transition",
           "kisaoId": {
             "namespace": "KISAO",
-            "id": "KISAO_0000243"
+            "id": "KISAO_0000574"
           },
           "type": "string",
           "value": null
@@ -151,7 +151,7 @@
           "name": "standard deviation of the Gaussian noise which is added to each predicted species level",
           "kisaoId": {
             "namespace": "KISAO",
-            "id": "KISAO_0000201"
+            "id": "KISAO_0000572"
           },
           "type": "float",
           "value": 0.0
@@ -177,7 +177,7 @@
       "name": "time series with probabilistic state transitions",
       "kisaoId": {
         "namespace": "KISAO",
-        "id": "KISAO_0000448"
+        "id": "KISAO_0000573"
       },
       "modelingFrameworks": [{
         "namespace": "SBO",
@@ -200,7 +200,7 @@
         "name": "standard deviation of the Gaussian noise which is added to each predicted species level",
         "kisaoId": {
           "namespace": "KISAO",
-          "id": "KISAO_0000201"
+          "id": "KISAO_0000572"
         },
         "type": "float",
         "value": 0.0
