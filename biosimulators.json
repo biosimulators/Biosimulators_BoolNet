@@ -2,7 +2,7 @@
   "id": "boolnet",
   "name": "BoolNet",
   "version": "2.1.5",
-  "description": "R package for generation, reconstruction, simulation and analysis of synchronous, asynchronous and probabilistic Boolean networks.",
+  "description": "Package for generation, reconstruction, simulation and analysis of synchronous, asynchronous and probabilistic Boolean networks.",
   "url": "https://sysbio.uni-ulm.de/?Software:BoolNet",
   "image": "docker.io/biosimulators/boolnet:2.1.5",
   "format": {
