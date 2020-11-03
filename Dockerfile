@@ -3,7 +3,7 @@ FROM ubuntu:20.04
 
 # metadata
 LABEL base_image="ubuntu:20.04"
-LABEL version="1.0.0"
+LABEL version="0.0.1"
 LABEL software="BoolNet"
 LABEL software.version="2.1.5"
 LABEL about.summary="Package for generation, reconstruction, simulation and analysis of synchronous, asynchronous and probabilistic Boolean networks."

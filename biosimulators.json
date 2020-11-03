@@ -4,7 +4,7 @@
   "version": "2.1.5",
   "description": "Package for generation, reconstruction, simulation and analysis of synchronous, asynchronous and probabilistic Boolean networks.",
   "url": "https://sysbio.uni-ulm.de/?Software:BoolNet",
-  "image": "docker.io/biosimulators/boolnet:2.1.5",
+  "image": "ghcr.io/biosimulators/boolnet:2.1.5",
   "format": {
     "namespace": "EDAM",
     "id": "format_3973"
