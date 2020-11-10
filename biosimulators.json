@@ -45,6 +45,11 @@
       "namespace": "cran",
       "id": "BoolNet",
       "url": "https://cran.r-project.org/web/packages/BoolNet"
+    },
+    {
+      "namespace": "pypi",
+      "id": "biosimulators-boolnet",
+      "url": "https://pypi.org/project/biosimulators-boolnet/"
     }],
     "citations": [{
       "title": "BoolNet—an R package for generation, reconstruction and analysis of Boolean networks",
@@ -225,6 +230,7 @@
   "updated": "2020-10-28T12:00:00Z",
   "biosimulators": {
     "specificationsVersion": "1.0.0",
-    "imageVersion": "1.0.0"
+    "imageVersion": "1.0.0",
+    "validated": false
   }
 }
