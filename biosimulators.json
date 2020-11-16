@@ -101,7 +101,7 @@
           "id": "KISAO_0000572"
         },
         "type": "float",
-        "value": 0.0
+        "value": "0.0"
       }],
       "citations": [{
         "title": "BoolNet—an R package for generation, reconstruction and analysis of Boolean networks",
@@ -159,7 +159,7 @@
             "id": "KISAO_0000572"
           },
           "type": "float",
-          "value": 0.0
+          "value": "0.0"
         }
       ],
       "citations": [{
@@ -208,7 +208,7 @@
           "id": "KISAO_0000572"
         },
         "type": "float",
-        "value": 0.0
+        "value": "0.0"
       }],
       "citations": [{
         "title": "BoolNet—an R package for generation, reconstruction and analysis of Boolean networks",
