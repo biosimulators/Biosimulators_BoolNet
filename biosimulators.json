@@ -3,41 +3,49 @@
   "name": "BoolNet",
   "version": "2.1.5",
   "description": "Package for generation, reconstruction, simulation and analysis of synchronous, asynchronous and probabilistic Boolean networks.",
-  "url": "https://sysbio.uni-ulm.de/?Software:BoolNet",
-  "image": "ghcr.io/biosimulators/biosimulators_boolnet/boolnet:2.1.5",
-  "format": {
-    "namespace": "EDAM",
-    "id": "format_3973"
+  "urls": [{"type": "Home page", "url": "https://sysbio.uni-ulm.de/?Software:BoolNet"}],
+  "image": {
+    "url": "ghcr.io/biosimulators/biosimulators_boolnet/boolnet:2.1.5",
+    "format": {
+      "namespace": "EDAM",
+      "id": "format_3973", "version": null
+    }
   },
   "authors": [{
       "firstName": "Christoph",
       "middleName": null,
-      "lastName": "Müssel"
+      "lastName": "Müssel",
+            "identifiers": []
     },
     {
       "firstName": "Martin",
       "middleName": null,
-      "lastName": "Hopfensitz"
+      "lastName": "Hopfensitz",
+            "identifiers": []
     },
     {
       "firstName": "Hans",
       "middleName": "A.",
-      "lastName": "Kestler"
+      "lastName": "Kestler",
+            "identifiers": []
     },
     {
       "firstName": "Dao",
       "middleName": null,
-      "lastName": "Zhou"
+      "lastName": "Zhou",
+            "identifiers": []
     },
     {
       "firstName": "Armin",
       "middleName": null,
-      "lastName": "Biere"
+      "lastName": "Biere",
+            "identifiers": []
     },
     {
       "firstName": "Troy",
       "middleName": "D.",
-      "lastName": "Hanson"
+      "lastName": "Hanson",
+            "identifiers": []
     }
   ],
   "references": {
@@ -83,15 +91,15 @@
       }],
       "modelFormats": [{
         "namespace": "EDAM",
-        "id": "format_2585"
+        "id": "format_2585", "version": null
       }],
       "simulationFormats": [{
         "namespace": "EDAM",
-        "id": "format_3685"
+        "id": "format_3685", "version": null
       }],
       "archiveFormats": [{
         "namespace": "EDAM",
-        "id": "format_3686"
+        "id": "format_3686", "version": null
       }],
       "parameters": [{
         "id": "noiseLevel",
@@ -101,8 +109,11 @@
           "id": "KISAO_0000572"
         },
         "type": "float",
-        "value": "0.0"
+        "value": "0.0",
+        "recommendedRange": null,
+                    "availableSoftwareInterfaceTypes": ["library", "command-line application", "BioSimulators Docker image"]
       }],
+      "availableSoftwareInterfaceTypes": ["library", "command-line application", "BioSimulators Docker image"],
       "citations": [{
         "title": "BoolNet—an R package for generation, reconstruction and analysis of Boolean networks",
         "authors": "Christoph Müssel, Martin Hopfensitz & Hans A. Kestler",
@@ -131,15 +142,15 @@
       }],
       "modelFormats": [{
         "namespace": "EDAM",
-        "id": "format_2585"
+        "id": "format_2585", "version": null
       }],
       "simulationFormats": [{
         "namespace": "EDAM",
-        "id": "format_3685"
+        "id": "format_3685", "version": null
       }],
       "archiveFormats": [{
         "namespace": "EDAM",
-        "id": "format_3686"
+        "id": "format_3686", "version": null
       }],
       "parameters": [{
           "id": "geneProbabilities",
@@ -149,7 +160,9 @@
             "id": "KISAO_0000574"
           },
           "type": "string",
-          "value": null
+          "value": null,
+          "recommendedRange": null,
+                    "availableSoftwareInterfaceTypes": ["library", "command-line application", "BioSimulators Docker image"]
         },
         {
           "id": "noiseLevel",
@@ -159,9 +172,12 @@
             "id": "KISAO_0000572"
           },
           "type": "float",
-          "value": "0.0"
+          "value": "0.0",
+          "recommendedRange": null,
+                    "availableSoftwareInterfaceTypes": ["library", "command-line application", "BioSimulators Docker image"]
         }
       ],
+      "availableSoftwareInterfaceTypes": ["library", "command-line application", "BioSimulators Docker image"],
       "citations": [{
         "title": "BoolNet—an R package for generation, reconstruction and analysis of Boolean networks",
         "authors": "Christoph Müssel, Martin Hopfensitz & Hans A. Kestler",
@@ -190,15 +206,15 @@
       }],
       "modelFormats": [{
         "namespace": "EDAM",
-        "id": "format_2585"
+        "id": "format_2585", "version": null
       }],
       "simulationFormats": [{
         "namespace": "EDAM",
-        "id": "format_3685"
+        "id": "format_3685", "version": null
       }],
       "archiveFormats": [{
         "namespace": "EDAM",
-        "id": "format_3686"
+        "id": "format_3686", "version": null
       }],
       "parameters": [{
         "id": "noiseLevel",
@@ -208,8 +224,11 @@
           "id": "KISAO_0000572"
         },
         "type": "float",
-        "value": "0.0"
+        "value": "0.0",
+        "recommendedRange": null,
+                    "availableSoftwareInterfaceTypes": ["library", "command-line application", "BioSimulators Docker image"]
       }],
+      "availableSoftwareInterfaceTypes": ["library", "command-line application", "BioSimulators Docker image"],
       "citations": [{
         "title": "BoolNet—an R package for generation, reconstruction and analysis of Boolean networks",
         "authors": "Christoph Müssel, Martin Hopfensitz & Hans A. Kestler",
@@ -226,10 +245,10 @@
       }]
     }
   ],
-  "created": "2020-10-28T12:00:00Z",
-  "updated": "2020-10-28T12:00:00Z",
+  "interfaceTypes": ["library", "command-line application", "BioSimulators Docker image"],
+  "supportedProgrammingLanguages": ["R"],
   "biosimulators": {
-    "specificationsVersion": "1.0.0",
+    "specificationVersion": "1.0.0",
     "imageVersion": "1.0.0",
     "validated": false
   }
