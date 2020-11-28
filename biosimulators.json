@@ -8,8 +8,9 @@
     "url": "ghcr.io/biosimulators/biosimulators_boolnet/boolnet:2.1.5",
     "format": {
       "namespace": "EDAM",
-      "id": "format_3973", "version": null
-    }
+      "id": "format_3973", "version": null, "supportedFeatures": []
+    },
+    "operatingSystemType": "Linux"
   },
   "authors": [{
       "firstName": "Christoph",
@@ -91,15 +92,15 @@
       }],
       "modelFormats": [{
         "namespace": "EDAM",
-        "id": "format_2585", "version": null
+        "id": "format_2585", "version": null, "supportedFeatures": []
       }],
       "simulationFormats": [{
         "namespace": "EDAM",
-        "id": "format_3685", "version": null
+        "id": "format_3685", "version": null, "supportedFeatures": []
       }],
       "archiveFormats": [{
         "namespace": "EDAM",
-        "id": "format_3686", "version": null
+        "id": "format_3686", "version": null, "supportedFeatures": []
       }],
       "parameters": [{
         "id": "noiseLevel",
@@ -114,6 +115,7 @@
                     "availableSoftwareInterfaceTypes": ["library", "command-line application", "BioSimulators Docker image"]
       }],
       "availableSoftwareInterfaceTypes": ["library", "command-line application", "BioSimulators Docker image"],
+      "dependencies": null,
       "citations": [{
         "title": "BoolNet—an R package for generation, reconstruction and analysis of Boolean networks",
         "authors": "Christoph Müssel, Martin Hopfensitz & Hans A. Kestler",
@@ -142,15 +144,15 @@
       }],
       "modelFormats": [{
         "namespace": "EDAM",
-        "id": "format_2585", "version": null
+        "id": "format_2585", "version": null, "supportedFeatures": []
       }],
       "simulationFormats": [{
         "namespace": "EDAM",
-        "id": "format_3685", "version": null
+        "id": "format_3685", "version": null, "supportedFeatures": []
       }],
       "archiveFormats": [{
         "namespace": "EDAM",
-        "id": "format_3686", "version": null
+        "id": "format_3686", "version": null, "supportedFeatures": []
       }],
       "parameters": [{
           "id": "geneProbabilities",
@@ -178,6 +180,7 @@
         }
       ],
       "availableSoftwareInterfaceTypes": ["library", "command-line application", "BioSimulators Docker image"],
+      "dependencies": null,
       "citations": [{
         "title": "BoolNet—an R package for generation, reconstruction and analysis of Boolean networks",
         "authors": "Christoph Müssel, Martin Hopfensitz & Hans A. Kestler",
@@ -206,15 +209,15 @@
       }],
       "modelFormats": [{
         "namespace": "EDAM",
-        "id": "format_2585", "version": null
+        "id": "format_2585", "version": null, "supportedFeatures": []
       }],
       "simulationFormats": [{
         "namespace": "EDAM",
-        "id": "format_3685", "version": null
+        "id": "format_3685", "version": null, "supportedFeatures": []
       }],
       "archiveFormats": [{
         "namespace": "EDAM",
-        "id": "format_3686", "version": null
+        "id": "format_3686", "version": null, "supportedFeatures": []
       }],
       "parameters": [{
         "id": "noiseLevel",
@@ -229,6 +232,7 @@
                     "availableSoftwareInterfaceTypes": ["library", "command-line application", "BioSimulators Docker image"]
       }],
       "availableSoftwareInterfaceTypes": ["library", "command-line application", "BioSimulators Docker image"],
+      "dependencies": null,
       "citations": [{
         "title": "BoolNet—an R package for generation, reconstruction and analysis of Boolean networks",
         "authors": "Christoph Müssel, Martin Hopfensitz & Hans A. Kestler",
@@ -246,7 +250,9 @@
     }
   ],
   "interfaceTypes": ["library", "command-line application", "BioSimulators Docker image"],
-  "supportedProgrammingLanguages": ["R"],
+  "supportedOperatingSystemTypes": ["platform-independent"],
+  "supportedProgrammingLanguages": [{"namespace": "Linguist", "id": "R"}],
+  "funding": [],
   "biosimulators": {
     "specificationVersion": "1.0.0",
     "imageVersion": "1.0.0",
