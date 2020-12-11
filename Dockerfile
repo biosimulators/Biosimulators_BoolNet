@@ -1,5 +1,5 @@
 # Base OS
-FROM python:3.7.9-slim-buster
+FROM continuumio/miniconda3:4.9.2
 
 ARG VERSION="0.0.1"
 ARG SIMULATOR_VERSION=2.1.5
@@ -16,7 +16,7 @@ LABEL \
     org.opencontainers.image.vendor="BioSimulators Team" \
     org.opencontainers.image.licenses="Artistic-2.0" \
     \
-    base_image="python:3.7.9-slim-buster" \
+    base_image="continuumio/miniconda3:4.9.2" \
     version="${VERSION}" \
     software="BoolNet" \
     software.version="${SIMULATOR_VERSION}" \
@@ -29,56 +29,13 @@ LABEL \
     maintainer="BioSimulators Team <info@biosimulators.org>"
 
 # Install requirements
-RUN apt-get update -y \
-    && apt-get install -y --no-install-recommends \
-        dirmngr \
-        gnupg \
-        apt-transport-https \
-        ca-certificates \
-        software-properties-common \
-        build-essential \
-        r-base \
-        libcurl4-openssl-dev \
-        libxml2-dev \
-        libssl-dev \
-        libfontconfig1-dev \
-        libharfbuzz-dev \
-        libfribidi-dev \
-        libgit2-dev \
-        libfreetype6-dev \
-        libpng-dev \
-        libtiff5-dev \
-        libjpeg-dev \
-        gfortran \
-        libblas-dev \
-        liblapack-dev \
-    \
-    R -e "install.packages(\"devtools\", dependencies=TRUE);" \
-    R -e "require(devtools); install_version(\"BoolNet\", version=\"${SIMULATOR_VERSION}\")"
-    \
-    && apt-get remove -y \
-        dirmngr \
-        gnupg \
-        apt-transport-https \
-        ca-certificates \
-        software-properties-common \
-        build-essential \
-        libcurl4-openssl-dev \
-        libxml2-dev \
-        libssl-dev \
-        libfontconfig1-dev \
-        libharfbuzz-dev \
-        libfribidi-dev \
-        libgit2-dev \
-        libfreetype6-dev \
-        libpng-dev \
-        libtiff5-dev \
-        libjpeg-dev \
-        gfortran \
-        libblas-dev \
-        liblapack-dev \
-    && apt-get autoremove -y \
-    && rm -rf /var/lib/apt/lists/*
+ENV CONDA_ENV=py38
+RUN conda config --add channels conda-forge \
+    && conda update -y -n base -c defaults conda \
+    && conda create -y -n ${CONDA_ENV} python=3.8 \
+    && conda install -y r-boolnet=${SIMULATOR_VERSION}
+ENV PATH=/opt/conda/envs/${CONDA_ENV}/bin:${PATH}
+RUN /bin/bash -c "source activate ${CONDA_ENV}"
 
 # Copy code for command-line interface into image and install it
 COPY . /root/Biosimulators_boolnet
