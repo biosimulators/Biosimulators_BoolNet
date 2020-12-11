@@ -1,9 +1,7 @@
-![Latest version](https://img.shields.io/github/v/tag/biosimulators/Biosimulators_BoolNet)
+[![Latest release](https://img.shields.io/github/v/tag/biosimulators/Biosimulators_BoolNet)](https://github.com/biosimulations/Biosimulators_BoolNet/releases)
 [![PyPI](https://img.shields.io/pypi/v/biosimulators_boolnet)](https://pypi.org/project/biosimulators_boolnet/)
-[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/biosimulators/Biosimulators_BoolNet/workflow-id)](https://github.com/biosimulators/Biosimulators_BoolNet/actions?query=workflow%3Aworkflow-id)
-[![Documentation](https://img.shields.io/github/license/biosimulators/Biosimulators_BoolNet?badges-awesome-green.svg)](https://biosimulators.github.io/Biosimulators_BoolNet/)
-[![Issues](https://img.shields.io/github/issues/biosimulators/Biosimulators_BoolNet)](https://github.com/biosimulators/Biosimulators_BoolNet/issues)
-[![License](https://img.shields.io/github/license/biosimulators/Biosimulators_BoolNet?badges-awesome-green.svg)](https://github.com/biosimulators/Biosimulators_BoolNet/blob/dev/LICENSE)
+[![CI status](https://github.com/biosimulators/Biosimulators_BoolNet/workflows/Continuous%20integration/badge.svg)](https://github.com/biosimulators/Biosimulators_BoolNet/actions?query=workflow%3A%22Continuous+integration%22)
+[![Test coverage](https://codecov.io/gh/biosimulators/Biosimulators_BoolNet/branch/dev/graph/badge.svg)](https://codecov.io/gh/biosimulators/Biosimulators_BoolNet)
 
 # BioSimulators-BoolNet
 BioSimulators-compliant command-line interface to the [BoolNet](https://sysbio.uni-ulm.de/?Software:BoolNet) simulation program.

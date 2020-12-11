@@ -3,7 +3,7 @@ About BioSimulators-BoolNet
 
 License
 -------
-This package is released under the `MIT License <https://github.com/biosimulators/BioSimulators_BoolNet/blob/dev/LICENSE>`_. BoolNet is released under the `Artistic 2.0 License <https://spdx.org/licenses/Artistic-2.0.html>`_.
+This package is released under the `MIT License <https://github.com/biosimulators/Biosimulators_BoolNet/blob/dev/LICENSE>`_. BoolNet is released under the `Artistic 2.0 License <https://spdx.org/licenses/Artistic-2.0.html>`_.
 
 Development team
 ----------------

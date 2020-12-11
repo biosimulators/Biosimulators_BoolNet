@@ -1,7 +1,7 @@
 Tutorial
 ========
 
-BioSimulators-BoolNet is available as command-line program and as a command-line program encapsulated into a Docker image.
+BioSimulators-BoolNet is available as a command-line program and as a command-line program encapsulated into a Docker image.
 
 
 Creating COMBINE/OMEX archives and encoding simulation experiments into SED-ML
