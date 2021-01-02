@@ -38,8 +38,10 @@ ENV PATH=/opt/conda/envs/${CONDA_ENV}/bin:${PATH}
 RUN /bin/bash -c "source activate ${CONDA_ENV}"
 
 # Copy code for command-line interface into image and install it
-COPY . /root/Biosimulators_boolnet
-RUN pip install /root/Biosimulators_boolnet
+COPY . /root/Biosimulators_BoolNet
+RUN pip install /root/Biosimulators_BoolNet \
+    && rm -rf /root/Biosimulators_BoolNet
+ENV MPLBACKEND=PDF
 
 # Entrypoint
 ENTRYPOINT ["boolnet"]
