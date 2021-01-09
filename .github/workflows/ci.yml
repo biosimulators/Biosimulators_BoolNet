@@ -97,7 +97,8 @@ jobs:
             gcc \
             gfortran \
             libblas-dev \
-            libcurl4-openssl-dev \
+            libcurl4-gnutls-dev \
+            libcurl4-openssl-dev \            
             libgit2-dev \
             liblapack-dev \
             libssl-dev \
