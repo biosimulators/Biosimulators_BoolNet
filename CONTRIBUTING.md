@@ -8,15 +8,56 @@ Before getting started, please contact the lead developers at [info@biosimulator
 
 ## Repository organization
 
+The repository follows standard Python conventions:
+
 * `README.md`: Overview of the repository
+* `biosimulators_boolnet/`: Python code for a BioSimulators-compliant command-line interface to BoolNet
 * `tests/`: unit tests for the command-line interface
+* `setup.py`: installation script for the command-line interface
+* `setup.cfg`: configuration for the installation of the command-line interface
+* `requirements.txt`: dependencies for the command-line interface
+* `requirements.optional.txt`: optional dependencies for the command-line interface
+* `MANIFEST.in`: a list of files to include in the package for the command-line interface
 * `LICENSE`: License
 * `CONTRIBUTING.md`: Guide to contributing to BioSimulators-BoolNet (this document)
 * `CODE_OF_CONDUCT.md`: Code of conduct for developers of BioSimulators-BoolNet
 
+## Coding convention
+
+BioSimulators-BoolNet follows standard Python style conventions:
+
+* Class names: `UpperCamelCase`
+* Function names: `lower_snake_case`
+* Variable names: `lower_snake_case`
+
 ## Testing and continuous integration
 
 We strive to have complete test coverage for BioSimulators-BoolNet.
+
+The unit tests for BioSimulators-BoolNet are located in the `tests`  directory. The tests can be executed by running the following command:
+```
+pip install pytest
+python -m pytest tests
+```
+
+The tests are also automatically evaluated upon each push to GitHub.
+
+The coverage of the tests can be evaluated by running the following commands and then opening `/path/to/biosimulators_boolnet/htmlcov/index.html` with your browser.
+```
+pip install pytest pytest-cov coverage
+python -m pytest tests --cov biosimulators_boolnet
+coverage html
+```
+
+## Documentation convention
+
+BioSimulators-BooolNet is documented using [reStructuredText](https://www.sphinx-doc.org/en/master/usage/restructuredtext/index.html) and the [napoleon Sphinx plugin](https://www.sphinx-doc.org/en/master/usage/extensions/napoleon.html). The documentation can be compiled by running the following commands:
+
+```
+python -m pip install -r docs-src/requirements.txt
+sphinx-apidoc . setup.py --output-dir docs-src/source --force --module-first --no-toc
+sphinx-build docs-src docs
+```
 
 ## Submitting changes
 

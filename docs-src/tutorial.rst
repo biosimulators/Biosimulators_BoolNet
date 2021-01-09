@@ -11,6 +11,21 @@ Information about how to create COMBINE/OMEX archives which can be executed by B
 
 A list of the algorithms and algorithm parameters supported by BoolNet is available at `BioSimulators <https://biosimulators.org/simulators/boolnet>`_.
 
+Models (SBML)
++++++++++++++
+
+BioSimulators-BoolNet can execute models encoded in the ``qual`` package of SBML.
+
+Simulation experiments (SED-ML, KISAO)
+++++++++++++++++++++++++++++++++++++++
+
+BioSimulators-BoolNet can execute simulation experiments encoded in SED-ML, using KiSAO to indicate specific algorithms and their parameters. Information about the algorithms (KiSAO terms), algorithm parameters (KiSAO terms), and outputs (XML XPATHs for variables) supported by BioSimulators-BoolNet is available from the `BioSimulators registry <https://biosimulators.org/simulators/boolnet>`_.
+
+Example COMBINE/OMEX archives
++++++++++++++++++++++++++++++
+
+Examples of COMBINE/OMEX archives for logical simulations which BioSimulators-BoolNet can execute are available in the `BioSimulators test suite <https://github.com/biosimulators/Biosimulators_test_suite/tree/dev/examples>`_.
+
 
 Command-line program
 --------------------
@@ -44,7 +59,7 @@ For example, the following command could be used to execute the simulations desc
 Docker image with a command-line entrypoint
 -------------------------------------------
 
-The entrypoint to the Docker image supports the same command-line interface described above. 
+The entrypoint to the Docker image supports the same command-line interface described above.
 
 For example, the following command could be used to use the Docker image to execute the same simulations described in ``./modeling-study.omex`` and save their results to ``./``:
 

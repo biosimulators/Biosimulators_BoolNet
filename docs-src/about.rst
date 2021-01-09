@@ -7,7 +7,7 @@ This package is released under the `MIT License <https://github.com/biosimulator
 
 Development team
 ----------------
-This package was developed by the `Karr Lab <https://www.karrlab.org>`_ at the Icahn School of Medicine at Mount Sinai and the `Center for Reproducible Biomedical Modeling <https://reproduciblebiomodels.org/>`_. BoolNet was developed by the `Medical Systems Biology Lab <http://www.cs.unca.edu/~drawert/>`_ at Ulm University.
+This package was developed by the `Karr Lab <https://www.karrlab.org>`_ at the Icahn School of Medicine at Mount Sinai and the `Center for Reproducible Biomedical Modeling <https://reproduciblebiomodels.org/>`_. BoolNet was developed by the `Medical Systems Biology Lab <https://sysbio.uni-ulm.de/>`_ at Ulm University.
 
 Questions and comments
 -------------------------

@@ -3,12 +3,17 @@
   "name": "BoolNet",
   "version": "2.1.5",
   "description": "Package for generation, reconstruction, simulation and analysis of synchronous, asynchronous and probabilistic Boolean networks.",
-  "urls": [{"type": "Home page", "url": "https://sysbio.uni-ulm.de/?Software:BoolNet"}],
+  "urls": [{
+    "type": "Home page",
+    "url": "https://sysbio.uni-ulm.de/?Software:BoolNet"
+  }],
   "image": {
     "url": "ghcr.io/biosimulators/biosimulators_boolnet/boolnet:2.1.5",
     "format": {
       "namespace": "EDAM",
-      "id": "format_3973", "version": null, "supportedFeatures": []
+      "id": "format_3973",
+      "version": null,
+      "supportedFeatures": []
     },
     "operatingSystemType": "Linux"
   },
@@ -16,50 +21,51 @@
       "firstName": "Christoph",
       "middleName": null,
       "lastName": "Müssel",
-            "identifiers": []
+      "identifiers": []
     },
     {
       "firstName": "Martin",
       "middleName": null,
       "lastName": "Hopfensitz",
-            "identifiers": []
+      "identifiers": []
     },
     {
       "firstName": "Hans",
       "middleName": "A.",
       "lastName": "Kestler",
-            "identifiers": []
+      "identifiers": []
     },
     {
       "firstName": "Dao",
       "middleName": null,
       "lastName": "Zhou",
-            "identifiers": []
+      "identifiers": []
     },
     {
       "firstName": "Armin",
       "middleName": null,
       "lastName": "Biere",
-            "identifiers": []
+      "identifiers": []
     },
     {
       "firstName": "Troy",
       "middleName": "D.",
       "lastName": "Hanson",
-            "identifiers": []
+      "identifiers": []
     }
   ],
   "references": {
     "identifiers": [{
-      "namespace": "cran",
-      "id": "BoolNet",
-      "url": "https://cran.r-project.org/web/packages/BoolNet"
-    },
-    {
-      "namespace": "pypi",
-      "id": "biosimulators-boolnet",
-      "url": "https://pypi.org/project/biosimulators-boolnet/"
-    }],
+        "namespace": "cran",
+        "id": "BoolNet",
+        "url": "https://cran.r-project.org/web/packages/BoolNet"
+      },
+      {
+        "namespace": "pypi",
+        "id": "biosimulators-boolnet",
+        "url": "https://pypi.org/project/biosimulators-boolnet/"
+      }
+    ],
     "citations": [{
       "title": "BoolNet—an R package for generation, reconstruction and analysis of Boolean networks",
       "authors": "Christoph Müssel, Martin Hopfensitz & Hans A. Kestler",
@@ -92,15 +98,23 @@
       }],
       "modelFormats": [{
         "namespace": "EDAM",
-        "id": "format_2585", "version": null, "supportedFeatures": []
+        "id": "format_2585",
+        "version": null,
+        "supportedFeatures": [
+          "qual"
+        ]
       }],
       "simulationFormats": [{
         "namespace": "EDAM",
-        "id": "format_3685", "version": "L1V3", "supportedFeatures": []
+        "id": "format_3685",
+        "version": "L1V3",
+        "supportedFeatures": []
       }],
       "archiveFormats": [{
         "namespace": "EDAM",
-        "id": "format_3686", "version": null, "supportedFeatures": []
+        "id": "format_3686",
+        "version": null,
+        "supportedFeatures": []
       }],
       "parameters": [{
         "id": "noiseLevel",
@@ -112,18 +126,16 @@
         "type": "float",
         "value": "0.0",
         "recommendedRange": null,
-                    "availableSoftwareInterfaceTypes": ["library", "command-line application", "BioSimulators Docker image"]
+        "availableSoftwareInterfaceTypes": ["library", "command-line application", "BioSimulators Docker image"]
       }],
       "dependentDimensions": [{
         "namespace": "SIO",
         "id": "SIO_000418"
       }],
-      "dependentVariableTargetPatterns": [
-        {
-          "variables": "species levels",
-          "targetPattern": "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species"
-        }
-      ],
+      "dependentVariableTargetPatterns": [{
+        "variables": "species levels",
+        "targetPattern": "/sbml:sbml/sbml:model/qual:listOfQualitativeSpecies/qual:qualitativeSpecies"
+      }],
       "availableSoftwareInterfaceTypes": ["library", "command-line application", "BioSimulators Docker image"],
       "dependencies": null,
       "citations": [{
@@ -154,15 +166,23 @@
       }],
       "modelFormats": [{
         "namespace": "EDAM",
-        "id": "format_2585", "version": null, "supportedFeatures": []
+        "id": "format_2585",
+        "version": null,
+        "supportedFeatures": [
+          "qual"
+        ]
       }],
       "simulationFormats": [{
         "namespace": "EDAM",
-        "id": "format_3685", "version": "L1V3", "supportedFeatures": []
+        "id": "format_3685",
+        "version": "L1V3",
+        "supportedFeatures": []
       }],
       "archiveFormats": [{
         "namespace": "EDAM",
-        "id": "format_3686", "version": null, "supportedFeatures": []
+        "id": "format_3686",
+        "version": null,
+        "supportedFeatures": []
       }],
       "parameters": [{
           "id": "geneProbabilities",
@@ -171,10 +191,10 @@
             "namespace": "KISAO",
             "id": "KISAO_0000574"
           },
-          "type": "string",
+          "type": "object",
           "value": null,
           "recommendedRange": null,
-                    "availableSoftwareInterfaceTypes": ["library", "command-line application", "BioSimulators Docker image"]
+          "availableSoftwareInterfaceTypes": ["library", "command-line application", "BioSimulators Docker image"]
         },
         {
           "id": "noiseLevel",
@@ -186,19 +206,17 @@
           "type": "float",
           "value": "0.0",
           "recommendedRange": null,
-                    "availableSoftwareInterfaceTypes": ["library", "command-line application", "BioSimulators Docker image"]
+          "availableSoftwareInterfaceTypes": ["library", "command-line application", "BioSimulators Docker image"]
         }
       ],
       "dependentDimensions": [{
         "namespace": "SIO",
         "id": "SIO_000418"
       }],
-      "dependentVariableTargetPatterns": [
-        {
-          "variables": "species levels",
-          "targetPattern": "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species"
-        }
-      ],
+      "dependentVariableTargetPatterns": [{
+        "variables": "species levels",
+        "targetPattern": "/sbml:sbml/sbml:model/qual:listOfQualitativeSpecies/qual:qualitativeSpecies"
+      }],
       "availableSoftwareInterfaceTypes": ["library", "command-line application", "BioSimulators Docker image"],
       "dependencies": null,
       "citations": [{
@@ -229,15 +247,23 @@
       }],
       "modelFormats": [{
         "namespace": "EDAM",
-        "id": "format_2585", "version": null, "supportedFeatures": []
+        "id": "format_2585",
+        "version": null,
+        "supportedFeatures": [
+          "qual"
+        ]
       }],
       "simulationFormats": [{
         "namespace": "EDAM",
-        "id": "format_3685", "version": "L1V3", "supportedFeatures": []
+        "id": "format_3685",
+        "version": "L1V3",
+        "supportedFeatures": []
       }],
       "archiveFormats": [{
         "namespace": "EDAM",
-        "id": "format_3686", "version": null, "supportedFeatures": []
+        "id": "format_3686",
+        "version": null,
+        "supportedFeatures": []
       }],
       "parameters": [{
         "id": "noiseLevel",
@@ -249,18 +275,16 @@
         "type": "float",
         "value": "0.0",
         "recommendedRange": null,
-                    "availableSoftwareInterfaceTypes": ["library", "command-line application", "BioSimulators Docker image"]
+        "availableSoftwareInterfaceTypes": ["library", "command-line application", "BioSimulators Docker image"]
       }],
       "dependentDimensions": [{
         "namespace": "SIO",
         "id": "SIO_000418"
       }],
-      "dependentVariableTargetPatterns": [
-        {
-          "variables": "species levels",
-          "targetPattern": "/sbml:sbml/sbml:model/sbml:listOfSpecies/sbml:species"
-        }
-      ],
+      "dependentVariableTargetPatterns": [{
+        "variables": "species levels",
+        "targetPattern": "/sbml:sbml/sbml:model/qual:listOfQualitativeSpecies/qual:qualitativeSpecies"
+      }],
       "availableSoftwareInterfaceTypes": ["library", "command-line application", "BioSimulators Docker image"],
       "dependencies": null,
       "citations": [{
@@ -281,7 +305,10 @@
   ],
   "interfaceTypes": ["library", "command-line application", "BioSimulators Docker image"],
   "supportedOperatingSystemTypes": ["platform-independent"],
-  "supportedProgrammingLanguages": [{"namespace": "Linguist", "id": "R"}],
+  "supportedProgrammingLanguages": [{
+    "namespace": "Linguist",
+    "id": "R"
+  }],
   "funding": [],
   "biosimulators": {
     "specificationVersion": "1.0.0",

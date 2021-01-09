@@ -22,6 +22,11 @@ A simple web application and web service for using BoolNet to execute COMBINE/OM
 
 ## Installation
 
+### Install Python package
+```
+pip install biosimulators-boolnet
+```
+
 ### Install Docker image
 ```
 docker pull ghcr.io/biosimulators/boolnet
@@ -48,7 +53,7 @@ optional arguments:
 ```
 
 ### Usage through Docker container
-The entrypoint to the Docker image supports the same command-line interface described above. 
+The entrypoint to the Docker image supports the same command-line interface described above.
 
 For example, the following command could be used to use the Docker image to execute the COMBINE/OMEX archive `./modeling-study.omex` and save its outputs to `./`.
 
