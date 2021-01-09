@@ -89,14 +89,40 @@ jobs:
           python -m pip install --upgrade setuptools
 
       # install R
-      - name: Install R
+      - name: Install R dependencies
         run: |
           sudo apt-get update -y
           sudo apt-get install -y --no-install-recommends \
+            build-essential \
             gcc \
-            r-base \
+            gfortran \
+            libblas-dev \
             libcurl4-openssl-dev \
-            libgit2-dev
+            libgit2-dev \
+            liblapack-dev \
+            libssl-dev \
+            libxml2-dev \
+            jq
+
+      - name: Install R
+        uses: r-lib/actions/setup-r@v1
+
+      - name: Cache R packages
+        uses: actions/cache@v2
+        with:
+          path: $HOME/.local/share/renv
+          key: r-${{ hashFiles('renv.lock') }}
+          restore-keys: r-
+
+      - name: Install R packages
+        run: |
+          SIMULATOR_VERSION=$(jq -r '.version' biosimulators.json)
+
+          Rscript \
+            -e "install.packages('devtools')" \
+            -e "require(devtools)" \
+            -e "install_version('BoolNet', version='${SIMULATOR_VERSION}')" \
+            -e "require('BoolNet')"
 
       # install package
       - name: Install the package

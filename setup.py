@@ -21,14 +21,6 @@ name = 'biosimulators_boolnet'
 dirname = os.path.dirname(__file__)
 
 
-class PostInstallCommand(setuptools.command.install.install):
-    """Post-installation for installation mode."""
-
-    def run(self):
-        from biosimulators_boolnet.utils import install_boolnet
-        install_boolnet()
-
-
 # get package metadata
 md = pkg_utils.get_package_metadata(dirname, name)
 
@@ -61,9 +53,6 @@ setuptools.setup(
     extras_require=md.extras_require,
     tests_require=md.tests_require,
     dependency_links=md.dependency_links,
-    cmdclass={
-        'install': PostInstallCommand,
-    },
     classifiers=[
         'Development Status :: 3 - Alpha',
         'Intended Audience :: Science/Research',

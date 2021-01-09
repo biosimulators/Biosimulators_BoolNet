@@ -32,9 +32,15 @@ LABEL \
 RUN apt-get update -y \
     && apt-get install -y --no-install-recommends \
         r-base \
+        build-essential \
         gcc \
-        libgit2-dev \
+        gfortran \
+        libblas-dev \
         libcurl4-openssl-dev \
+        libgit2-dev \
+        liblapack-dev \
+        libssl-dev \
+        libxml2-dev \
     \
     && Rscript \
         -e "install.packages('devtools')" \
@@ -43,9 +49,15 @@ RUN apt-get update -y \
         -e "require('BoolNet')" \
     \
     && apt-get remove -y \
+        build-essential \
         gcc \
-        libgit2-dev \
+        gfortran \
+        libblas-dev \
         libcurl4-openssl-dev \
+        libgit2-dev \
+        liblapack-dev \
+        libssl-dev \
+        libxml2-dev \
     && apt-get autoremove -y \
     && rm -rf /var/lib/apt/lists/*
 
