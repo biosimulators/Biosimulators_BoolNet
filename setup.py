@@ -21,14 +21,6 @@ name = 'biosimulators_boolnet'
 dirname = os.path.dirname(__file__)
 
 
-class PostDevelopCommand(setuptools.command.develop.develop):
-    """Post-installation for installation mode."""
-
-    def run(self):
-        from biosimulators_boolnet.utils import install_boolnet
-        install_boolnet()
-
-
 class PostInstallCommand(setuptools.command.install.install):
     """Post-installation for installation mode."""
 
@@ -52,14 +44,24 @@ setuptools.setup(
     author='BioSimulators Team',
     author_email="info@biosimulators.org",
     license="MIT",
-    keywords='',
+    keywords=[
+        'systems biology',
+        'computational biology',
+        'logical model',
+        'numerical simulation',
+        'BioSimulators',
+        'SBML',
+        'SED-ML',
+        'COMBINE',
+        'OMEX',
+        'BoolNet',
+    ],
     packages=setuptools.find_packages(exclude=['tests', 'tests.*']),
     install_requires=md.install_requires,
     extras_require=md.extras_require,
     tests_require=md.tests_require,
     dependency_links=md.dependency_links,
     cmdclass={
-        'develop': PostDevelopCommand,
         'install': PostInstallCommand,
     },
     classifiers=[

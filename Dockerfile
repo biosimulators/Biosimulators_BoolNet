@@ -1,5 +1,5 @@
 # Base OS
-FROM continuumio/miniconda3:4.9.2
+FROM python:3.7.9-slim-buster
 
 ARG VERSION="0.1.0"
 ARG SIMULATOR_VERSION=2.1.5
@@ -16,7 +16,7 @@ LABEL \
     org.opencontainers.image.vendor="BioSimulators Team" \
     org.opencontainers.image.licenses="Artistic-2.0" \
     \
-    base_image="continuumio/miniconda3:4.9.2" \
+    base_image="python:3.7.9-slim-buster" \
     version="${VERSION}" \
     software="BoolNet" \
     software.version="${SIMULATOR_VERSION}" \
@@ -29,13 +29,25 @@ LABEL \
     maintainer="BioSimulators Team <info@biosimulators.org>"
 
 # Install requirements
-ENV CONDA_ENV=py38
-RUN conda config --add channels conda-forge \
-    && conda update -y -n base -c defaults conda \
-    && conda create -y -n ${CONDA_ENV} python=3.8 \
-    && conda install -y r-boolnet=${SIMULATOR_VERSION}
-ENV PATH=/opt/conda/envs/${CONDA_ENV}/bin:${PATH}
-RUN /bin/bash -c "source activate ${CONDA_ENV}"
+RUN apt-get update -y \
+    && apt-get install -y --no-install-recommends \
+        r-base \
+        gcc \
+        libgit2-dev \
+        libcurl4-openssl-dev \
+    \
+    && Rscript \
+        -e "install.packages('devtools')" \
+        -e "require(devtools)" \
+        -e "install_version('BoolNet', version='${SIMULATOR_VERSION}')" \
+        -e "require('BoolNet')" \
+    \
+    && apt-get remove -y \
+        gcc \
+        libgit2-dev \
+        libcurl4-openssl-dev \
+    && apt-get autoremove -y \
+    && rm -rf /var/lib/apt/lists/*
 
 # Copy code for command-line interface into image and install it
 COPY . /root/Biosimulators_BoolNet

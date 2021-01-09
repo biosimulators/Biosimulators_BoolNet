@@ -307,7 +307,7 @@ jobs:
 
           # Create packages to upload to PyPI
           python setup.py sdist
-          # python setup.py bdist_wheel
+          python setup.py bdist_wheel
 
           # Upload packages to PyPI
           twine upload dist/*
