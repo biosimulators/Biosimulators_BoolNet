@@ -1,8 +1,8 @@
-# Base OS
-FROM python:3.7.9-slim-buster
-
 ARG VERSION="0.1.0"
 ARG SIMULATOR_VERSION=2.1.5
+
+# Base OS
+FROM ghcr.io/biosimulators/biosimulators_boolnet/boolnet_base:${SIMULATOR_VERSION}
 
 # metadata
 LABEL \
@@ -27,39 +27,6 @@ LABEL \
     about.license="SPDX:Artistic-2.0" \
     about.tags="BioSimulators,mathematical model,logical model,simulation,systems biology,computational biology,SBML,SED-ML,COMBINE,OMEX" \
     maintainer="BioSimulators Team <info@biosimulators.org>"
-
-# Install requirements
-RUN apt-get update -y \
-    && apt-get install -y --no-install-recommends \
-        r-base \
-        build-essential \
-        gcc \
-        gfortran \
-        libblas-dev \
-        libcurl4-openssl-dev \
-        libgit2-dev \
-        liblapack-dev \
-        libssl-dev \
-        libxml2-dev \
-    \
-    && Rscript \
-        -e "install.packages('devtools')" \
-        -e "require(devtools)" \
-        -e "install_version('BoolNet', version='${SIMULATOR_VERSION}')" \
-        -e "require('BoolNet')" \
-    \
-    && apt-get remove -y \
-        build-essential \
-        gcc \
-        gfortran \
-        libblas-dev \
-        libcurl4-openssl-dev \
-        libgit2-dev \
-        liblapack-dev \
-        libssl-dev \
-        libxml2-dev \
-    && apt-get autoremove -y \
-    && rm -rf /var/lib/apt/lists/*
 
 # Copy code for command-line interface into image and install it
 COPY . /root/Biosimulators_BoolNet

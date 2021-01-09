@@ -98,7 +98,6 @@ jobs:
             gfortran \
             libblas-dev \
             libcurl4-gnutls-dev \
-            libcurl4-openssl-dev \            
             libgit2-dev \
             liblapack-dev \
             libssl-dev \
@@ -175,6 +174,20 @@ jobs:
 
       - name: Build Docker image
         run: |
+          docker login ${{ steps.get-docker-image-tag.outputs.dockerRegistry }} \
+            --username ${{ secrets.DOCKER_REGISTRY_USERNAME }} \
+            --password ${{ secrets.DOCKER_REGISTRY_TOKEN }}
+
+          BASE_TAG=ghcr.io/biosimulators/biosimulators_boolnet/boolnet_base:${{ steps.get-docker-image-tag.outputs.simulatorVersion }}
+          docker pull $BASE_TAG
+
+          mkdir -p empty-docker-context
+          docker build \
+            -f Dockerfile-base \
+            --build-arg SIMULATOR_VERSION=${{ steps.get-docker-image-tag.outputs.simulatorVersion }} \
+            --tag ${BASE_TAG} \
+            empty-docker-context
+
           REVISION=$(git rev-parse HEAD)
           CREATED=$(date --rfc-3339=seconds | sed 's/ /T/')
           docker build \
@@ -346,6 +359,9 @@ jobs:
           docker login ${{ steps.get-docker-image-tag.outputs.dockerRegistry }} \
             --username ${{ secrets.DOCKER_REGISTRY_USERNAME }} \
             --password ${{ secrets.DOCKER_REGISTRY_TOKEN }}
+
+          docker push ghcr.io/biosimulators/biosimulators_boolnet/boolnet_base:${{ steps.get-docker-image-tag.outputs.simulatorVersion }}
+
           docker push ${{ steps.get-docker-image-tag.outputs.dockerImageBaseUrl }}:${{ steps.get-docker-image-tag.outputs.simulatorVersion }}
 
           if [[ "${{ github.ref }}" =~ ^refs/tags/ ]] || [ "${{ github.event.inputs.simulatorVersionLatest }}" == "true" ]; then

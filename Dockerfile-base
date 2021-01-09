@@ -1,0 +1,48 @@
+# Base OS
+FROM python:3.7.9-slim-buster
+
+ARG SIMULATOR_VERSION=2.1.5
+
+LABEL \
+    org.opencontainers.image.title="BoolNet" \
+    org.opencontainers.image.version="${SIMULATOR_VERSION}" \
+    org.opencontainers.image.description="Package for generation, reconstruction, simulation and analysis of synchronous, asynchronous and probabilistic Boolean networks." \
+    org.opencontainers.image.url="https://sysbio.uni-ulm.de/?Software:BoolNet" \
+    org.opencontainers.image.documentation="https://cran.r-project.org/web/packages/BoolNet/index.html" \
+    org.opencontainers.image.source="https://github.com/biosimulators/Biosimulators_BoolNet" \
+    org.opencontainers.image.authors="Medical Systems Biology, Ulm University" \
+    org.opencontainers.image.vendor="BioSimulators Team" \
+    org.opencontainers.image.licenses="Artistic-2.0"
+
+# Install requirements
+RUN apt-get update -y \
+    && apt-get install -y --no-install-recommends \
+        r-base \
+        build-essential \
+        gcc \
+        gfortran \
+        libblas-dev \
+        libcurl4-openssl-dev \
+        libgit2-dev \
+        liblapack-dev \
+        libssl-dev \
+        libxml2-dev \
+    \
+    && Rscript \
+        -e "install.packages('devtools')" \
+        -e "require(devtools)" \
+        -e "install_version('BoolNet', version='${SIMULATOR_VERSION}')" \
+        -e "require('BoolNet')" \
+    \
+    && apt-get remove -y \
+        build-essential \
+        gcc \
+        gfortran \
+        libblas-dev \
+        libcurl4-openssl-dev \
+        libgit2-dev \
+        liblapack-dev \
+        libssl-dev \
+        libxml2-dev \
+    && apt-get autoremove -y \
+    && rm -rf /var/lib/apt/lists/*
