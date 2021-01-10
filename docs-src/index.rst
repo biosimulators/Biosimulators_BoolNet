@@ -3,7 +3,7 @@ BioSimulators-BoolNet documentation
 
 BioSimulators-BoolNet provides a `BioSimulators <https://biosimulators.org>`_-compliant command-line interface to the `BoolNet <https://sysbio.uni-ulm.de/?Software:BoolNet>`_ biological simulation tool. A Docker image for this package is also available.
 
-This command-line interface and Docker image enable users to use BoolNet to execute `COMBINE/OMEX archives <https://combinearchive.org/>`_ that describe one or more simulation experiments (in `SED-ML format <https://sed-ml.org>`_) of one or more models (in `SBML format <http://sbml.org>`_).
+This command-line interface and Docker image enable users to use BoolNet to execute `COMBINE/OMEX archives <https://combinearchive.org/>`_ that describe one or more simulation experiments (in `SED-ML format <https://sed-ml.org>`_) of one or more logical models (in `SBML-qual format <http://sbml.org>`_).
 
 A list of the algorithms and algorithm parameters supported by BoolNet is available at `BioSimulators <https://biosimulators.org/simulators/boolnet>`_.
 
