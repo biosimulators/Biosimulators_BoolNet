@@ -179,13 +179,14 @@ jobs:
             --password ${{ secrets.DOCKER_REGISTRY_TOKEN }}
 
           BASE_TAG=ghcr.io/biosimulators/biosimulators_boolnet/boolnet_base:${{ steps.get-docker-image-tag.outputs.simulatorVersion }}
-          docker pull $BASE_TAG
+          docker pull $BASE_TAG || true
 
           mkdir -p empty-docker-context
           docker build \
             -f Dockerfile-base \
             --build-arg SIMULATOR_VERSION=${{ steps.get-docker-image-tag.outputs.simulatorVersion }} \
             --tag ${BASE_TAG} \
+            --tag ghcr.io/biosimulators/biosimulators_boolnet/boolnet_base:latest \
             empty-docker-context
 
           REVISION=$(git rev-parse HEAD)

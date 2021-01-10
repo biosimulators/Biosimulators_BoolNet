@@ -26,6 +26,7 @@ RUN apt-get update -y \
         libgit2-dev \
         liblapack-dev \
         libssl-dev \
+        libxml2 \
         libxml2-dev \
     \
     && Rscript \
