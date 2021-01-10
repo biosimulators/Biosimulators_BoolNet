@@ -27,6 +27,7 @@ jobs:
       dockerRegistry: ${{ steps.get-docker-image-tag.outputs.dockerRegistry }}
       release: ${{ steps.determine-if-release-needed.outputs.release }}
       docsChanged: ${{ steps.commit-docs.outputs.docsChanged }}
+      baseDockerImageUrl: ${{ steps.pull-existing-docker-layers.outputs.baseDockerImageUrl }}
     steps:
       - name: Clone repository
         run: |
@@ -75,7 +76,7 @@ jobs:
         with:
           python-version: '3.7'
 
-      - name: Setup pip cache
+      - name: Setup caching for Python packages
         uses: actions/cache@v2
         with:
           path: /opt/hostedtoolcache/Python
@@ -107,7 +108,7 @@ jobs:
       - name: Install R
         uses: r-lib/actions/setup-r@v1
 
-      - name: Cache R packages
+      - name: Setup caching for R packages
         uses: actions/cache@v2
         with:
           path: ${{ env.R_LIBS_USER }}
@@ -172,7 +173,13 @@ jobs:
           echo "::set-output name=dockerImageBaseUrl::${IMAGE_BASE_URL}"
           echo "::set-output name=dockerRegistry::${DOCKER_REGISTRY}"
 
-      - name: Build Docker image
+      - name: Setup caching for Docker layers
+        uses: satackey/action-docker-layer-caching@v0.0.11
+        # Ignore the failure of a step and avoid terminating the job.
+        continue-on-error: true
+
+      - id: pull-existing-docker-layers
+        name: Pull existing layers of Docker image
         run: |
           docker login ${{ steps.get-docker-image-tag.outputs.dockerRegistry }} \
             --username ${{ secrets.DOCKER_REGISTRY_USERNAME }} \
@@ -181,11 +188,15 @@ jobs:
           BASE_TAG=ghcr.io/biosimulators/biosimulators_boolnet/boolnet_base:${{ steps.get-docker-image-tag.outputs.simulatorVersion }}
           docker pull $BASE_TAG || true
 
+          echo "::set-output name=baseDockerImageUrl::${BASE_TAG}"
+
+      - name: Build Docker image
+        run: |
           mkdir -p empty-docker-context
           docker build \
             -f Dockerfile-base \
             --build-arg SIMULATOR_VERSION=${{ steps.get-docker-image-tag.outputs.simulatorVersion }} \
-            --tag ${BASE_TAG} \
+            --tag ${{ steps.pull-existing-docker-layers.outputs.baseDockerImageUrl }} \
             --tag ghcr.io/biosimulators/biosimulators_boolnet/boolnet_base:latest \
             empty-docker-context
 
@@ -361,7 +372,7 @@ jobs:
             --username ${{ secrets.DOCKER_REGISTRY_USERNAME }} \
             --password ${{ secrets.DOCKER_REGISTRY_TOKEN }}
 
-          docker push ghcr.io/biosimulators/biosimulators_boolnet/boolnet_base:${{ steps.get-docker-image-tag.outputs.simulatorVersion }}
+          docker push ${{ steps.pull-existing-docker-layers.outputs.baseDockerImageUrl }}
 
           docker push ${{ steps.get-docker-image-tag.outputs.dockerImageBaseUrl }}:${{ steps.get-docker-image-tag.outputs.simulatorVersion }}
 
