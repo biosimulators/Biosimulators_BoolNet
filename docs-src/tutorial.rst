@@ -11,8 +11,8 @@ Information about how to create COMBINE/OMEX archives which can be executed by B
 
 A list of the algorithms and algorithm parameters supported by BoolNet is available at `BioSimulators <https://biosimulators.org/simulators/boolnet>`_.
 
-Models (SBML)
-+++++++++++++
+Models (SBML-qual)
+++++++++++++++++++
 
 BioSimulators-BoolNet can execute models encoded in the ``qual`` package of SBML.
 
