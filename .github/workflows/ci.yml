@@ -117,13 +117,7 @@ jobs:
 
       - name: Install R packages
         run: |
-          SIMULATOR_VERSION=$(jq -r '.version' biosimulators.json)
-
-          Rscript \
-            -e "install.packages('devtools')" \
-            -e "require(devtools)" \
-            -e "install_version('BoolNet', version='${SIMULATOR_VERSION}')" \
-            -e "require('BoolNet')"
+          SIMULATOR_VERSION=$(jq -r '.version' biosimulators.json) Rscript setup.R
 
       # install package
       - name: Install the package
