@@ -110,9 +110,9 @@ jobs:
       - name: Cache R packages
         uses: actions/cache@v2
         with:
-          path: $HOME/.local/share/renv
-          key: r-${{ hashFiles('renv.lock') }}
-          restore-keys: r-
+          path: ${{ env.R_LIBS_USER }}
+          key: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1
+          restore-keys: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1
 
       - name: Install R packages
         run: |
