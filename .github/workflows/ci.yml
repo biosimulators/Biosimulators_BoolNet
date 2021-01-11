@@ -363,8 +363,6 @@ jobs:
             --username ${{ secrets.DOCKER_REGISTRY_USERNAME }} \
             --password ${{ secrets.DOCKER_REGISTRY_TOKEN }}
 
-          docker push ${{ steps.get-docker-image-tag.outputs.dockerRegistry }}/${{ steps.get-docker-image-tag.outputs.baseDockerImageUrl }}
-
           docker push ${{ steps.get-docker-image-tag.outputs.dockerImageBaseUrl }}:${{ steps.get-docker-image-tag.outputs.simulatorVersion }}
 
           if [[ "${{ github.ref }}" =~ ^refs/tags/ ]] || [ "${{ github.event.inputs.simulatorVersionLatest }}" == "true" ]; then
