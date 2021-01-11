@@ -156,6 +156,7 @@ jobs:
           sudo apt-get install -y --no-install-recommends jq
 
           mkdir -p empty-docker-context
+          cp Dockerfile-base empty-docker-context/
 
           SIMULATOR_ID=$(jq -r '.id' biosimulators.json)
           SIMULATOR_VERSION=$(jq -r '.version' biosimulators.json)
