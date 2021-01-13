@@ -77,7 +77,7 @@ class CliTestCase(unittest.TestCase):
 
         # synchronous method
         task.simulation.algorithm.kisao_id = 'KISAO_0000449'
-        variable_results = core.exec_sed_task(task, variables)
+        variable_results, _ = core.exec_sed_task(task, variables)
         self.assertEqual(set(variable_results.keys()), set(['Time', 'G0', 'G1']))
         for variable_result in variable_results.values():
             self.assertFalse(numpy.any(numpy.isnan(variable_result)))
@@ -89,7 +89,7 @@ class CliTestCase(unittest.TestCase):
             kisao_id='KISAO_0000574',
             new_value=json.dumps({'G0': 0.2, 'G1': 0.3, 'G2': 0.5}),
         ))
-        variable_results = core.exec_sed_task(task, variables)
+        variable_results, _ = core.exec_sed_task(task, variables)
         self.assertEqual(set(variable_results.keys()), set(['Time', 'G0', 'G1']))
         for variable_result in variable_results.values():
             self.assertFalse(numpy.any(numpy.isnan(variable_result)))
@@ -98,7 +98,7 @@ class CliTestCase(unittest.TestCase):
         # probabilstic method
         task.simulation.algorithm.kisao_id = 'KISAO_0000573'
         task.simulation.algorithm.changes.pop()
-        variable_results = core.exec_sed_task(task, variables)
+        variable_results, _ = core.exec_sed_task(task, variables)
         self.assertEqual(set(variable_results.keys()), set(['Time', 'G0', 'G1']))
         for variable_result in variable_results.values():
             self.assertFalse(numpy.any(numpy.isnan(variable_result)))

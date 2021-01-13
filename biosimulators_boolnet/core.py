@@ -10,6 +10,7 @@ from .data_model import KISAO_METHOD_ARGUMENTS_MAP
 from .utils import (validate_time_course, validate_data_generator_variables, get_boolnet,
                     set_simulation_method_arg, get_variable_results)
 from biosimulators_utils.combine.exec import exec_sedml_docs_in_archive
+from biosimulators_utils.log.data_model import CombineArchiveLog, TaskLog  # noqa: F401
 from biosimulators_utils.plot.data_model import PlotFormat  # noqa: F401
 from biosimulators_utils.report.data_model import ReportFormat, DataGeneratorVariableResults  # noqa: F401
 from biosimulators_utils.sedml import validation
@@ -41,25 +42,32 @@ def exec_sedml_docs_in_combine_archive(archive_filename, out_dir,
         plot_formats (:obj:`list` of :obj:`PlotFormat`, optional): report format (e.g., pdf)
         bundle_outputs (:obj:`bool`, optional): if :obj:`True`, bundle outputs into archives for reports and plots
         keep_individual_outputs (:obj:`bool`, optional): if :obj:`True`, keep individual output files
+
+    Returns:
+        :obj:`CombineArchiveLog`: log
     """
     sed_doc_executer = functools.partial(exec_sed_doc, exec_sed_task)
-    exec_sedml_docs_in_archive(sed_doc_executer, archive_filename, out_dir,
-                               apply_xml_model_changes=True,
-                               report_formats=report_formats,
-                               plot_formats=plot_formats,
-                               bundle_outputs=bundle_outputs,
-                               keep_individual_outputs=keep_individual_outputs)
+    return exec_sedml_docs_in_archive(sed_doc_executer, archive_filename, out_dir,
+                                      apply_xml_model_changes=True,
+                                      report_formats=report_formats,
+                                      plot_formats=plot_formats,
+                                      bundle_outputs=bundle_outputs,
+                                      keep_individual_outputs=keep_individual_outputs)
 
 
-def exec_sed_task(task, variables):
+def exec_sed_task(task, variables, log=None):
     """ Execute a task and save its results
 
     Args:
        task (:obj:`Task`): task
        variables (:obj:`list` of :obj:`DataGeneratorVariable`): variables that should be recorded
+       log (:obj:`TaskLog`, optional): log for the task
 
     Returns:
-        :obj:`DataGeneratorVariableResults`: results of variables
+        :obj:`tuple`:
+
+            :obj:`DataGeneratorVariableResults`: results of variables
+            :obj:`TaskLog`: log
 
     Raises:
         :obj:`NotImplementedError`:
@@ -67,6 +75,8 @@ def exec_sed_task(task, variables):
           * Task requires a time course that BoolNet doesn't support
           * Task requires an algorithm that BoolNet doesn't support
     """
+    log = log or TaskLog()
+
     # validate task
     validation.validate_task(task)
     validation.validate_model_language(task.model.language, ModelLanguage.SBML)
@@ -118,9 +128,17 @@ def exec_sed_task(task, variables):
     for i_species, species_id in enumerate(species_results_matrix.rownames):
         species_results_dict[species_id] = numpy.array(species_results_matrix.rx(i_species + 1, True))
 
-    # return results in BioSimulator's format
+    # get the results in BioSimulator's format
     variable_results = get_variable_results(sim, variables, target_x_paths_ids, species_results_dict)
     for variable in variables:
         variable_results[variable.id] = variable_results[variable.id][-(int(sim.number_of_points) + 1):]
 
-    return variable_results
+    # log action
+    log.algorithm = alg_kisao_id
+    log.simulator_details = {
+        'method': 'BoolNet::generateTimeSeries',
+        'arguments': simulation_method_args,
+    }
+
+    # return the result of each variable and log
+    return variable_results, log

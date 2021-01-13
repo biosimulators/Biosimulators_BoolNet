@@ -25,7 +25,8 @@ LABEL \
 COPY . /root/Biosimulators_BoolNet
 RUN pip install /root/Biosimulators_BoolNet \
     && rm -rf /root/Biosimulators_BoolNet
-ENV MPLBACKEND=PDF
+ENV VERBOSE=0 \
+    MPLBACKEND=PDF
 
 # Entrypoint
 ENTRYPOINT ["boolnet"]
