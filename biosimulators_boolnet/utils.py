@@ -8,8 +8,8 @@
 
 from .config import Config
 from .data_model import KISAO_METHOD_ARGUMENTS_MAP
-from biosimulators_utils.report.data_model import DataGeneratorVariableResults
-from biosimulators_utils.sedml.data_model import DataGeneratorVariable, DataGeneratorVariableSymbol  # noqa: F401
+from biosimulators_utils.report.data_model import VariableResults
+from biosimulators_utils.sedml.data_model import Variable, Symbol  # noqa: F401
 from biosimulators_utils.utils.core import validate_str_value, parse_value
 from rpy2.robjects.packages import importr, isinstalled, InstalledSTPackage  # noqa: F401
 from rpy2.robjects.vectors import StrVector, ListVector  # noqa: F401
@@ -109,7 +109,7 @@ def validate_data_generator_variables(variables, algorithm_kisao_id):
     """ Validate that BoolNet can produce the desired variables of the desired data generators
 
     Args:
-        variables (:obj:`list` of :obj:`DataGeneratorVariable`): variables of data generators
+        variables (:obj:`list` of :obj:`Variable`): variables of data generators
         algorithm_kisao_id (:obj:`str`): KiSAO id of the algorithm
 
     Raises:
@@ -122,7 +122,7 @@ def validate_data_generator_variables(variables, algorithm_kisao_id):
     invalid_targets = set()
     for variable in variables:
         if variable.symbol:
-            if variable.symbol != DataGeneratorVariableSymbol.time:
+            if variable.symbol != Symbol.time:
                 invalid_symbols.add(variable.symbol)
 
         else:
@@ -139,7 +139,7 @@ def validate_data_generator_variables(variables, algorithm_kisao_id):
             "The following variable symbols are not supported:\n  - {}\n\n".format(
                 '\n  - '.join(sorted(invalid_symbols)),
             ),
-            "Symbols must be one of the following:\n  - {}".format(DataGeneratorVariableSymbol.time),
+            "Symbols must be one of the following:\n  - {}".format(Symbol.time),
         ]))
 
     if invalid_targets:
@@ -191,16 +191,16 @@ def get_variable_results(simulation, variables, target_x_paths_ids, species_resu
 
     Args:
         simulation (:obj:`UniformTimeCourseSimulation`): simulation
-        variables (:obj:`list` of :obj:`DataGeneratorVariable`): variables of data generators
+        variables (:obj:`list` of :obj:`Variable`): variables of data generators
         target_x_paths_ids (:obj:`dict`): dictionary that maps each variable target to the SBML qual id
             of the corresponding qualitative species
         species_results (:obj:`dict` of :obj:`str` to :obj:`numpy.ndarray`): dictionary that maps the
             id of each species to its predicted values
 
     Returns:
-        :obj:`DataGeneratorVariableResults`
+        :obj:`VariableResults`
     """
-    variable_results = DataGeneratorVariableResults()
+    variable_results = VariableResults()
     for variable in variables:
         if variable.symbol:
             variable_result = numpy.linspace(0, int(simulation.output_end_time), int(simulation.output_end_time) + 1)

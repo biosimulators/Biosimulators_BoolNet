@@ -64,15 +64,18 @@ class CliTestCase(unittest.TestCase):
         )
 
         variables = [
-            sedml_data_model.DataGeneratorVariable(
+            sedml_data_model.Variable(
                 id='Time',
-                symbol=sedml_data_model.DataGeneratorVariableSymbol.time),
-            sedml_data_model.DataGeneratorVariable(
+                symbol=sedml_data_model.Symbol.time,
+                task=task),
+            sedml_data_model.Variable(
                 id='G0',
-                target="/sbml:sbml/sbml:model/qual:listOfQualitativeSpecies/qual:qualitativeSpecies[@qual:id='G0']/@level"),
-            sedml_data_model.DataGeneratorVariable(
+                target="/sbml:sbml/sbml:model/qual:listOfQualitativeSpecies/qual:qualitativeSpecies[@qual:id='G0']/@level",
+                task=task),
+            sedml_data_model.Variable(
                 id='G1',
-                target="/sbml:sbml/sbml:model/qual:listOfQualitativeSpecies/qual:qualitativeSpecies[@qual:id='G1']/@level"),
+                target="/sbml:sbml/sbml:model/qual:listOfQualitativeSpecies/qual:qualitativeSpecies[@qual:id='G1']/@level",
+                task=task),
         ]
 
         # synchronous method
@@ -185,11 +188,10 @@ class CliTestCase(unittest.TestCase):
         doc.data_generators.append(sedml_data_model.DataGenerator(
             id='data_gen_time',
             variables=[
-                sedml_data_model.DataGeneratorVariable(
+                sedml_data_model.Variable(
                     id='var_time',
-                    symbol=sedml_data_model.DataGeneratorVariableSymbol.time,
+                    symbol=sedml_data_model.Symbol.time,
                     task=doc.tasks[0],
-                    model=doc.models[0],
                 ),
             ],
             math='var_time',
@@ -197,11 +199,10 @@ class CliTestCase(unittest.TestCase):
         doc.data_generators.append(sedml_data_model.DataGenerator(
             id='data_gen_G1',
             variables=[
-                sedml_data_model.DataGeneratorVariable(
+                sedml_data_model.Variable(
                     id='var_G1',
                     target="/sbml:sbml/sbml:model/qual:listOfQualitativeSpecies/qual:qualitativeSpecies[@qual:id='G1']",
                     task=doc.tasks[0],
-                    model=doc.models[0],
                 ),
             ],
             math='var_G1',
@@ -209,11 +210,10 @@ class CliTestCase(unittest.TestCase):
         doc.data_generators.append(sedml_data_model.DataGenerator(
             id='data_gen_G2',
             variables=[
-                sedml_data_model.DataGeneratorVariable(
+                sedml_data_model.Variable(
                     id='var_G2',
                     target="/sbml:sbml/sbml:model/qual:listOfQualitativeSpecies/qual:qualitativeSpecies[@qual:id='G2']/@level",
                     task=doc.tasks[0],
-                    model=doc.models[0],
                 ),
             ],
             math='var_G2',

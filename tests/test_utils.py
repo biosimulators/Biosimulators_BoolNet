@@ -1,8 +1,8 @@
 from biosimulators_boolnet.utils import (install_boolnet, get_boolnet, get_boolnet_version,
                                          validate_time_course, validate_data_generator_variables,
                                          set_simulation_method_arg, get_variable_results)
-from biosimulators_utils.sedml.data_model import (UniformTimeCourseSimulation, DataGeneratorVariable,
-                                                  DataGeneratorVariableSymbol, AlgorithmParameterChange)
+from biosimulators_utils.sedml.data_model import (UniformTimeCourseSimulation, Variable,
+                                                  Symbol, AlgorithmParameterChange)
 from unittest import mock
 import numpy
 import numpy.testing
@@ -48,26 +48,26 @@ class UtilsTestCase(unittest.TestCase):
     def test_validate_data_generator_variables(self):
         alg_kisao_id = 'KISAO_0000573'
         variables = [
-            DataGeneratorVariable(
-                symbol=DataGeneratorVariableSymbol.time),
-            DataGeneratorVariable(
+            Variable(
+                symbol=Symbol.time),
+            Variable(
                 target="/sbml:sbml/sbml:model/qual:listOfQualitativeSpecies/qual:qualitativeSpecies[@id='x']/@level"),
-            DataGeneratorVariable(
+            Variable(
                 target="/sbml:sbml/sbml:model/qual:listOfQualitativeSpecies/qual:qualitativeSpecies[@id='y']"),
-            DataGeneratorVariable(
+            Variable(
                 target="/sbml:sbml/sbml:model/qual:listOfQualitativeSpecies/qual:qualitativeSpecies[@name='Y']"),
-            DataGeneratorVariable(
+            Variable(
                 target="/sbml:sbml/sbml:model/qual:listOfQualitativeSpecies/qual:qualitativeSpecies/@level"),
-            DataGeneratorVariable(
+            Variable(
                 target="/sbml:sbml/sbml:model/qual:listOfQualitativeSpecies/qual:qualitativeSpecies")
         ]
         validate_data_generator_variables(variables, alg_kisao_id)
 
-        variables = [DataGeneratorVariable(symbol='x')]
+        variables = [Variable(symbol='x')]
         with self.assertRaises(NotImplementedError):
             validate_data_generator_variables(variables, alg_kisao_id)
 
-        variables = [DataGeneratorVariable(target='x')]
+        variables = [Variable(target='x')]
         with self.assertRaises(ValueError):
             validate_data_generator_variables(variables, alg_kisao_id)
 
@@ -134,13 +134,13 @@ class UtilsTestCase(unittest.TestCase):
         data = numpy.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
         species_results = pandas.DataFrame(data, index=['A', 'B', 'C']).transpose()
         variables = [
-            DataGeneratorVariable(
+            Variable(
                 id='var_time',
-                symbol=DataGeneratorVariableSymbol.time.value),
-            DataGeneratorVariable(
+                symbol=Symbol.time.value),
+            Variable(
                 id='var_A',
                 target="/sbml:sbml/sbml:model/qual:listOfQualitativeSpecies/qual:qualitativeSpecies[@qual:id='A']"),
-            DataGeneratorVariable(
+            Variable(
                 id='var_B',
                 target="/sbml:sbml/sbml:model/qual:listOfQualitativeSpecies/qual:qualitativeSpecies[@qual:id='B']"),
         ]
