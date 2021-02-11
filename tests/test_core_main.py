@@ -33,6 +33,10 @@ class CliTestCase(unittest.TestCase):
     EXAMPLE_MODEL_FILENAME = os.path.join(os.path.dirname(__file__), 'fixtures', 'example-model.xml')
     SPECIFICATIONS_FILENAME = os.path.join(os.path.dirname(__file__), '..', 'biosimulators.json')
     DOCKER_IMAGE = 'ghcr.io/biosimulators/biosimulators_boolnet/boolnet:latest'
+    NAMESPACES = {
+        'sbml': 'http://www.sbml.org/sbml/level3/version1/core',
+        'qual': 'http://www.sbml.org/sbml/level3/version1/qual/version1',
+    }
 
     def setUp(self):
         self.dirname = tempfile.mkdtemp()
@@ -71,10 +75,12 @@ class CliTestCase(unittest.TestCase):
             sedml_data_model.Variable(
                 id='G0',
                 target="/sbml:sbml/sbml:model/qual:listOfQualitativeSpecies/qual:qualitativeSpecies[@qual:id='G0']/@level",
+                target_namespaces=self.NAMESPACES,
                 task=task),
             sedml_data_model.Variable(
                 id='G1',
                 target="/sbml:sbml/sbml:model/qual:listOfQualitativeSpecies/qual:qualitativeSpecies[@qual:id='G1']/@level",
+                target_namespaces=self.NAMESPACES,
                 task=task),
         ]
 
@@ -202,6 +208,7 @@ class CliTestCase(unittest.TestCase):
                 sedml_data_model.Variable(
                     id='var_G1',
                     target="/sbml:sbml/sbml:model/qual:listOfQualitativeSpecies/qual:qualitativeSpecies[@qual:id='G1']",
+                    target_namespaces=self.NAMESPACES,
                     task=doc.tasks[0],
                 ),
             ],
@@ -213,6 +220,7 @@ class CliTestCase(unittest.TestCase):
                 sedml_data_model.Variable(
                     id='var_G2',
                     target="/sbml:sbml/sbml:model/qual:listOfQualitativeSpecies/qual:qualitativeSpecies[@qual:id='G2']/@level",
+                    target_namespaces=self.NAMESPACES,
                     task=doc.tasks[0],
                 ),
             ],

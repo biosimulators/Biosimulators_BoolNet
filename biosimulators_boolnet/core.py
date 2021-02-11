@@ -17,7 +17,9 @@ from biosimulators_utils.sedml import validation
 from biosimulators_utils.sedml.data_model import (Task, ModelLanguage, ModelAttributeChange,  # noqa: F401
                                                   UniformTimeCourseSimulation, Variable)
 from biosimulators_utils.sedml.exec import exec_sed_doc
+from biosimulators_utils.xml.utils import get_namespaces_for_xml_doc
 from rpy2.robjects.vectors import StrVector
+from lxml import etree
 import functools
 import numpy
 
@@ -86,8 +88,18 @@ def exec_sed_task(task, variables, log=None):
     validate_time_course(task.simulation)
     validation.validate_uniform_time_course_simulation(task.simulation)
     validation.validate_data_generator_variables(variables)
+    namespaces = get_namespaces_for_xml_doc(etree.parse(task.model.source))
     target_x_paths_ids = validation.validate_variable_xpaths(
-        variables, task.model.source, attr={'namespace': 'qual', 'name': 'id'})
+        variables,
+        task.model.source,
+        attr={
+            'namespace': {
+                'prefix': 'qual',
+                'uri': namespaces['qual'],
+            },
+            'name': 'id',
+        }
+    )
 
     # get BoolNet
     boolnet = get_boolnet()
