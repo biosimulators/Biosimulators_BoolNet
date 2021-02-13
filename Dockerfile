@@ -1,7 +1,7 @@
 # Base OS
 FROM ghcr.io/biosimulators/biosimulators_boolnet/boolnet_base:latest
 
-ARG VERSION="0.1.2"
+ARG VERSION="0.1.3"
 ARG SIMULATOR_VERSION=2.1.5
 
 # metadata
