@@ -1,5 +1,6 @@
 from biosimulators_boolnet.utils import (install_boolnet, get_boolnet, get_boolnet_version,
                                          validate_time_course, validate_data_generator_variables,
+                                         get_variable_target_x_path_keys,
                                          set_simulation_method_arg, get_variable_results)
 from biosimulators_utils.sedml.data_model import (UniformTimeCourseSimulation, Variable,
                                                   Symbol, AlgorithmParameterChange)
@@ -70,6 +71,31 @@ class UtilsTestCase(unittest.TestCase):
         variables = [Variable(target='x')]
         with self.assertRaises(ValueError):
             validate_data_generator_variables(variables, alg_kisao_id)
+
+    def test_get_variable_target_x_path_keys(self):
+        with mock.patch('lxml.etree.parse', return_value=None):
+            with mock.patch('biosimulators_utils.xml.utils.get_namespaces_for_xml_doc', return_value={'qual': None}):
+                with mock.patch('biosimulators_utils.sedml.validation.validate_variable_xpaths', side_effect=[{'x': 'X'}, {'x': 'eX'}]):
+                    self.assertEqual(get_variable_target_x_path_keys([Variable(target='x')], None), {'x': 'eX'})
+
+                with mock.patch('biosimulators_utils.sedml.validation.validate_variable_xpaths', side_effect=[{'x': 'X'}, {'x': None}]):
+                    self.assertEqual(get_variable_target_x_path_keys([Variable(target='x')], None), {'x': 'X'})
+
+                with mock.patch('biosimulators_utils.sedml.validation.validate_variable_xpaths', side_effect=[{'x': 'X'}, {'x': 'e/X'}]):
+                    self.assertEqual(get_variable_target_x_path_keys([Variable(target='x')], None), {'x': 'e_X'})
+
+                with mock.patch('biosimulators_utils.sedml.validation.validate_variable_xpaths', side_effect=[
+                    {'x': 'X', 'y': 'Y'},
+                    {'x': 'name-X', 'y': 'name-Y'},
+                ]):
+                    get_variable_target_x_path_keys([Variable(target='x'), Variable(target='y')], None)
+
+                with mock.patch('biosimulators_utils.sedml.validation.validate_variable_xpaths', side_effect=[
+                    {'x': 'X', 'y': 'Y'},
+                    {'x': 'name', 'y': 'name'},
+                ]):
+                    with self.assertRaisesRegex(ValueError, 'must generate a unique key'):
+                        get_variable_target_x_path_keys([Variable(target='x'), Variable(target='y')], None)
 
     def test_set_simulation_method_arg(self):
         class Model(list):
@@ -145,12 +171,12 @@ class UtilsTestCase(unittest.TestCase):
                 target="/sbml:sbml/sbml:model/qual:listOfQualitativeSpecies/qual:qualitativeSpecies[@qual:id='B']"),
         ]
 
-        target_x_paths_ids = {
+        target_x_paths_keys = {
             variables[1].target: 'A',
             variables[2].target: 'B',
         }
 
-        variable_results = get_variable_results(sim, variables, target_x_paths_ids, species_results)
+        variable_results = get_variable_results(sim, variables, target_x_paths_keys, species_results)
         numpy.testing.assert_allclose(variable_results['var_time'], numpy.array([0, 1, 2]))
         numpy.testing.assert_allclose(variable_results['var_A'], numpy.array([1, 2, 3]))
         numpy.testing.assert_allclose(variable_results['var_B'], numpy.array([4, 5, 6]))

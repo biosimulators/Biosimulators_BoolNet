@@ -13,6 +13,9 @@ from biosimulators_utils.sedml.data_model import Variable, Symbol  # noqa: F401
 from biosimulators_utils.utils.core import validate_str_value, parse_value
 from rpy2.robjects.packages import importr, isinstalled, InstalledSTPackage  # noqa: F401
 from rpy2.robjects.vectors import StrVector, ListVector  # noqa: F401
+import biosimulators_utils.sedml.validation
+import biosimulators_utils.xml.utils
+import lxml
 import numpy
 import re
 
@@ -22,6 +25,7 @@ __all__ = [
     'get_boolnet_version',
     'validate_time_course',
     'validate_data_generator_variables',
+    'get_variable_target_x_path_keys',
     'set_simulation_method_arg',
     'get_variable_results',
 ]
@@ -151,6 +155,59 @@ def validate_data_generator_variables(variables, algorithm_kisao_id):
         raise ValueError(msg)
 
 
+def get_variable_target_x_path_keys(variables, model_source):
+    """ Get the BoolNet key for each XML XPATH target of a SED-ML variable
+
+    Args:
+        variables (:obj:`list` of :obj:`Variable`): variables of data generators
+        model_source (:obj:`str`): path to model
+
+    Returns:
+        :obj:`dict`: dictionary that maps each variable target to the BoolNet key
+            of the corresponding qualitative species
+    """
+    namespaces = biosimulators_utils.xml.utils.get_namespaces_for_xml_doc(lxml.etree.parse(model_source))
+
+    target_x_paths_ids = biosimulators_utils.sedml.validation.validate_variable_xpaths(
+        variables,
+        model_source,
+        attr={
+            'namespace': {
+                'prefix': 'qual',
+                'uri': namespaces['qual'],
+            },
+            'name': 'id',
+        }
+    )
+
+    target_x_paths_names = biosimulators_utils.sedml.validation.validate_variable_xpaths(
+        variables,
+        model_source,
+        attr={
+            'namespace': {
+                'prefix': 'qual',
+                'uri': namespaces['qual'],
+            },
+            'name': 'name',
+        }
+    )
+
+    target_x_paths_keys = {}
+    variable_keys = []
+    for variable in variables:
+        if variable.target:
+            species_id = target_x_paths_ids[variable.target]
+            species_name = target_x_paths_names[variable.target]
+            species_key = re.sub(r'[^a-zA-Z0-9]', '_', species_name or species_id, re.IGNORECASE)
+            target_x_paths_keys[variable.target] = species_key
+            variable_keys.append(species_key)
+
+    if len(set(variable_keys)) < len(variable_keys):
+        raise ValueError("Each species must generate a unique key (equal to `re.sub(r'^[a-zA-Z0-9]', '_', name or id, re.IGNORECASE)`)")
+
+    return target_x_paths_keys
+
+
 def set_simulation_method_arg(model, algorithm_kisao_id, parameter_change, simulation_method_args):
     """ Set the value of an argument of BoolNet's ``generateTimeSeries`` method based on
     a SED parameter object (represented by an instance of :obj:`AlgorithmParameterChange`).
@@ -186,13 +243,13 @@ def set_simulation_method_arg(model, algorithm_kisao_id, parameter_change, simul
     simulation_method_args[parameter_props['argument_name']] = transformed_value
 
 
-def get_variable_results(simulation, variables, target_x_paths_ids, species_results):
+def get_variable_results(simulation, variables, target_x_paths_keys, species_results):
     """ Get the predicted values of the desired variables
 
     Args:
         simulation (:obj:`UniformTimeCourseSimulation`): simulation
         variables (:obj:`list` of :obj:`Variable`): variables of data generators
-        target_x_paths_ids (:obj:`dict`): dictionary that maps each variable target to the SBML qual id
+        target_x_paths_keys (:obj:`dict`): dictionary that maps each variable target to the BoolNet key
             of the corresponding qualitative species
         species_results (:obj:`dict` of :obj:`str` to :obj:`numpy.ndarray`): dictionary that maps the
             id of each species to its predicted values
@@ -206,8 +263,8 @@ def get_variable_results(simulation, variables, target_x_paths_ids, species_resu
             variable_result = numpy.linspace(0, int(simulation.output_end_time), int(simulation.output_end_time) + 1)
 
         else:
-            species_id = target_x_paths_ids[variable.target]
-            variable_result = species_results[species_id]
+            species_key = target_x_paths_keys[variable.target]
+            variable_result = species_results[species_key]
 
         variable_results[variable.id] = variable_result
 

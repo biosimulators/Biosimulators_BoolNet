@@ -7,8 +7,8 @@
 """
 
 from .data_model import KISAO_METHOD_ARGUMENTS_MAP
-from .utils import (validate_time_course, validate_data_generator_variables, get_boolnet,
-                    set_simulation_method_arg, get_variable_results)
+from .utils import (validate_time_course, validate_data_generator_variables, get_variable_target_x_path_keys,
+                    get_boolnet, set_simulation_method_arg, get_variable_results)
 from biosimulators_utils.combine.exec import exec_sedml_docs_in_archive
 from biosimulators_utils.log.data_model import CombineArchiveLog, TaskLog  # noqa: F401
 from biosimulators_utils.plot.data_model import PlotFormat  # noqa: F401
@@ -17,9 +17,7 @@ from biosimulators_utils.sedml import validation
 from biosimulators_utils.sedml.data_model import (Task, ModelLanguage, ModelAttributeChange,  # noqa: F401
                                                   UniformTimeCourseSimulation, Variable)
 from biosimulators_utils.sedml.exec import exec_sed_doc
-from biosimulators_utils.xml.utils import get_namespaces_for_xml_doc
 from rpy2.robjects.vectors import StrVector
-from lxml import etree
 import functools
 import numpy
 
@@ -88,18 +86,7 @@ def exec_sed_task(task, variables, log=None):
     validate_time_course(task.simulation)
     validation.validate_uniform_time_course_simulation(task.simulation)
     validation.validate_data_generator_variables(variables)
-    namespaces = get_namespaces_for_xml_doc(etree.parse(task.model.source))
-    target_x_paths_ids = validation.validate_variable_xpaths(
-        variables,
-        task.model.source,
-        attr={
-            'namespace': {
-                'prefix': 'qual',
-                'uri': namespaces['qual'],
-            },
-            'name': 'id',
-        }
-    )
+    target_x_paths_keys = get_variable_target_x_path_keys(variables, task.model.source)
 
     # get BoolNet
     boolnet = get_boolnet()
@@ -142,7 +129,7 @@ def exec_sed_task(task, variables, log=None):
         species_results_dict[species_id] = numpy.array(species_results_matrix.rx(i_species + 1, True))
 
     # get the results in BioSimulator's format
-    variable_results = get_variable_results(sim, variables, target_x_paths_ids, species_results_dict)
+    variable_results = get_variable_results(sim, variables, target_x_paths_keys, species_results_dict)
     for variable in variables:
         variable_results[variable.id] = variable_results[variable.id][-(int(sim.number_of_points) + 1):]
 
