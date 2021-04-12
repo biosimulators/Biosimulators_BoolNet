@@ -106,7 +106,8 @@ def validate_time_course(simulation):
         raise ValueError('Output end time must be a non-negative integer.')
 
     if (simulation.output_end_time - simulation.output_start_time) != simulation.number_of_points:
-        raise ValueError('Number of poins must be equal to the difference between the output end and start times.')
+        raise ValueError('Number of points ({}) must be equal to the difference between the output end ({}) and start times ({}).'.format(
+            simulation.number_of_points, simulation.output_end_time, simulation.output_start_time))
 
 
 def validate_data_generator_variables(variables, algorithm_kisao_id):
