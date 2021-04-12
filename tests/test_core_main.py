@@ -36,6 +36,7 @@ class CliTestCase(unittest.TestCase):
     SPECIFICATIONS_FILENAME = os.path.join(os.path.dirname(__file__), '..', 'biosimulators.json')
     DOCKER_IMAGE = 'ghcr.io/biosimulators/biosimulators_boolnet/boolnet:latest'
     NAMESPACES = {
+        None: 'http://sed-ml.org/sed-ml/level1/version3',
         'sbml': 'http://www.sbml.org/sbml/level3/version1/core',
         'qual': 'http://www.sbml.org/sbml/level3/version1/qual/version1',
     }
