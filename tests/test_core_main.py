@@ -10,6 +10,7 @@ from biosimulators_boolnet import __main__
 from biosimulators_boolnet import core
 from biosimulators_utils.combine import data_model as combine_data_model
 from biosimulators_utils.combine.io import CombineArchiveWriter
+from biosimulators_utils.config import get_config
 from biosimulators_utils.report import data_model as report_data_model
 from biosimulators_utils.report.io import ReportReader
 from biosimulators_utils.simulator.exec import exec_sedml_docs_in_archive_with_containerized_simulator
@@ -27,6 +28,7 @@ import os
 import shutil
 import tempfile
 import unittest
+import yaml
 
 
 class CliTestCase(unittest.TestCase):
@@ -107,11 +109,20 @@ class CliTestCase(unittest.TestCase):
         # probabilstic method
         task.simulation.algorithm.kisao_id = 'KISAO_0000573'
         task.simulation.algorithm.changes.pop()
-        variable_results, _ = core.exec_sed_task(task, variables)
+        variable_results, log = core.exec_sed_task(task, variables)
         self.assertEqual(set(variable_results.keys()), set(['Time', 'G0', 'G1']))
         for variable_result in variable_results.values():
             self.assertFalse(numpy.any(numpy.isnan(variable_result)))
         numpy.testing.assert_allclose(variable_results['Time'], numpy.linspace(10, 15, 6))
+
+        # check that log can be serialized to JSON
+        json.dumps(log.to_json())
+
+        log.out_dir = self.dirname
+        log.export()
+        with open(os.path.join(self.dirname, get_config().LOG_PATH), 'rb') as file:
+            log_data = yaml.load(file, Loader=yaml.Loader)
+        json.dumps(log_data)
 
         # error handling: invalid algorithm
         task.simulation.algorithm.kisao_id = 'KISAO_0000001'

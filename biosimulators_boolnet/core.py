@@ -139,6 +139,7 @@ def exec_sed_task(task, variables, log=None):
         'method': 'BoolNet::generateTimeSeries',
         'arguments': simulation_method_args,
     }
+    simulation_method_args['type'] = alg['type']
 
     # return the result of each variable and log
     return variable_results, log
