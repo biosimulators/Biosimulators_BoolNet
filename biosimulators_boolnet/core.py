@@ -88,6 +88,10 @@ def exec_sed_task(task, variables, log=None):
     validation.validate_data_generator_variables(variables)
     target_x_paths_keys = get_variable_target_x_path_keys(variables, task.model.source)
 
+    # validate model
+    validation.validate_model(task.model.source, ModelLanguage.SBML,
+                              name='`{}` for task `{}`'.format(task.model.id, task.id))
+
     # get BoolNet
     boolnet = get_boolnet()
 
