@@ -91,23 +91,25 @@ def validate_time_course(simulation):
     Args:
         simulation (:obj:`UniformTimeCourseSimulation`): simulation
 
-    Raises:
-        :obj:`NotImplementedError`: if the initial time is not 0.
-        :obj:`ValueError`: if the output start time or end time is not an integer or the number of points
-            is not equal to the difference between the output end and start times
+    Returns:
+        nested of :obj:`list` of :obj:`str`: errors
     """
+    errors = []
+
     if simulation.initial_time != 0:
-        raise NotImplementedError('Initial time must be 0.')
+        errors.append(['Initial time must be 0.'])
 
     if simulation.output_start_time != int(simulation.output_start_time):
-        raise ValueError('Output start time must be a non-negative integer.')
+        errors.append(['Output start time must be a non-negative integer.'])
 
     if simulation.output_end_time != int(simulation.output_end_time):
-        raise ValueError('Output end time must be a non-negative integer.')
+        errors.append(['Output end time must be a non-negative integer.'])
 
     if (simulation.output_end_time - simulation.output_start_time) != simulation.number_of_points:
-        raise ValueError('Number of points ({}) must be equal to the difference between the output end ({}) and start times ({}).'.format(
-            simulation.number_of_points, simulation.output_end_time, simulation.output_start_time))
+        errors.append(['Number of points ({}) must be equal to the difference between the output end ({}) and start times ({}).'.format(
+            simulation.number_of_points, simulation.output_end_time, simulation.output_start_time)])
+
+    return errors
 
 
 def validate_data_generator_variables(variables, algorithm_kisao_id):
@@ -157,7 +159,7 @@ def validate_data_generator_variables(variables, algorithm_kisao_id):
 
 
 def get_variable_target_x_path_keys(variables, model_source):
-    """ Get the BoolNet key for each XML XPATH target of a SED-ML variable
+    """ Get the BoolNet key for each XML XPath target of a SED-ML variable
 
     Args:
         variables (:obj:`list` of :obj:`Variable`): variables of data generators

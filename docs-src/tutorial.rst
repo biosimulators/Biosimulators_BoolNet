@@ -19,7 +19,7 @@ BioSimulators-BoolNet can execute models encoded in the ``qual`` package of SBML
 Simulation experiments (SED-ML, KISAO)
 ++++++++++++++++++++++++++++++++++++++
 
-BioSimulators-BoolNet can execute simulation experiments encoded in SED-ML, using KiSAO to indicate specific algorithms and their parameters. Information about the algorithms (KiSAO terms), algorithm parameters (KiSAO terms), and outputs (XML XPATHs for variables) supported by BioSimulators-BoolNet is available from the `BioSimulators registry <https://biosimulators.org/simulators/boolnet>`_.
+BioSimulators-BoolNet can execute simulation experiments encoded in SED-ML, using KiSAO to indicate specific algorithms and their parameters. Information about the algorithms (KiSAO terms), algorithm parameters (KiSAO terms), and outputs (XML XPaths for variables) supported by BioSimulators-BoolNet is available from the `BioSimulators registry <https://biosimulators.org/simulators/boolnet>`_.
 
 Example COMBINE/OMEX archives
 +++++++++++++++++++++++++++++

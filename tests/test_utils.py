@@ -28,23 +28,19 @@ class UtilsTestCase(unittest.TestCase):
 
     def test_validate_time_course(self):
         sim = UniformTimeCourseSimulation(initial_time=0, output_start_time=0, output_end_time=100, number_of_points=100)
-        validate_time_course(sim)
+        self.assertEqual(validate_time_course(sim), [])
 
         sim = UniformTimeCourseSimulation(initial_time=1, output_start_time=1, output_end_time=100, number_of_points=99)
-        with self.assertRaises(NotImplementedError):
-            validate_time_course(sim)
+        self.assertNotEqual(validate_time_course(sim), [])
 
         sim = UniformTimeCourseSimulation(initial_time=0, output_start_time=0.1, output_end_time=100, number_of_points=100)
-        with self.assertRaises(ValueError):
-            validate_time_course(sim)
+        self.assertNotEqual(validate_time_course(sim), [])
 
         sim = UniformTimeCourseSimulation(initial_time=0, output_start_time=0, output_end_time=100.1, number_of_points=100)
-        with self.assertRaises(ValueError):
-            validate_time_course(sim)
+        self.assertNotEqual(validate_time_course(sim), [])
 
         sim = UniformTimeCourseSimulation(initial_time=0, output_start_time=0, output_end_time=100, number_of_points=101)
-        with self.assertRaises(ValueError):
-            validate_time_course(sim)
+        self.assertNotEqual(validate_time_course(sim), [])
 
     def test_validate_data_generator_variables(self):
         alg_kisao_id = 'KISAO_0000573'
