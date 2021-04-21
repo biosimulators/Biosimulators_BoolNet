@@ -88,7 +88,7 @@ def exec_sed_task(task, variables, log=None):
                           error_summary='Language for model `{}` is not supported.'.format(model.id))
     raise_errors_warnings(validation.validate_model_change_types(task.model.changes, ()),
                           error_summary='Changes for model `{}` are not supported.'.format(model.id))
-    raise_errors_warnings(validation.validate_model_changes(task.model),
+    raise_errors_warnings(*validation.validate_model_changes(task.model),
                           error_summary='Changes for model `{}` are invalid.'.format(model.id))
     raise_errors_warnings(validation.validate_simulation_type(task.simulation, (UniformTimeCourseSimulation, )),
                           error_summary='{} `{}` is not supported.'.format(sim.__class__.__name__, sim.id))
@@ -96,7 +96,7 @@ def exec_sed_task(task, variables, log=None):
                           error_summary='Simulation `{}` is invalid.'.format(sim.id))
     raise_errors_warnings(validate_time_course(task.simulation),
                           error_summary='Simulation `{}` is invalid.'.format(sim.id))
-    raise_errors_warnings(validation.validate_data_generator_variables(variables),
+    raise_errors_warnings(*validation.validate_data_generator_variables(variables),
                           error_summary='Data generator variables for task `{}` are invalid.'.format(task.id))
     target_x_paths_keys = get_variable_target_x_path_keys(variables, task.model.source)
 
