@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>biosimulators_boolnet package &#8212; BioSimulators-BoolNet 0.1.10 documentation</title>
+    <title>biosimulators_boolnet package &#8212; BioSimulators-BoolNet 0.1.11 documentation</title>
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
@@ -363,7 +363,7 @@ id of each species to its predicted values</p></li>
 <dl class="py function">
 <dt id="biosimulators_boolnet.utils.get_variable_target_x_path_keys">
 <code class="sig-prename descclassname"><span class="pre">biosimulators_boolnet.utils.</span></code><code class="sig-name descname"><span class="pre">get_variable_target_x_path_keys</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">variables</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_source</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/biosimulators/Biosimulators_BoolNet/blob/dev/biosimulators_boolnet/utils.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#biosimulators_boolnet.utils.get_variable_target_x_path_keys" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get the BoolNet key for each XML XPATH target of a SED-ML variable</p>
+<dd><p>Get the BoolNet key for each XML XPath target of a SED-ML variable</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -440,12 +440,11 @@ a SED parameter object (represented by an instance of <code class="xref py py-ob
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>simulation</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">UniformTimeCourseSimulation</span></code>) – simulation</p>
 </dd>
-<dt class="field-even">Raises</dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>NotImplementedError</strong> – if the initial time is not 0.</p></li>
-<li><p><strong>ValueError</strong> – if the output start time or end time is not an integer or the number of points
-    is not equal to the difference between the output end and start times</p></li>
-</ul>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>errors</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>nested of <code class="xref py py-obj docutils literal notranslate"><span class="pre">list</span></code> of <code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></p>
 </dd>
 </dl>
 </dd></dl>
