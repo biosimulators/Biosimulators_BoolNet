@@ -132,10 +132,10 @@ def exec_sed_task(task, variables, log=None):
     # Apply the algorithm parameter changes specified by `simulation.algorithm.parameter_changes`
     if exec_kisao_id == alg_kisao_id:
         for change in sim.algorithm.changes:
-            set_simulation_method_arg(model, alg_kisao_id, change, simulation_method_args)
+            set_simulation_method_arg(model, exec_kisao_id, change, simulation_method_args)
 
     # validate that BoolNet can produce the desired variables of the desired data generators
-    validate_data_generator_variables(variables, alg_kisao_id)
+    validate_data_generator_variables(variables, exec_kisao_id)
 
     # execute simulation
     species_results_matrix = boolnet.generateTimeSeries(model, **simulation_method_args)[0]
@@ -149,7 +149,7 @@ def exec_sed_task(task, variables, log=None):
         variable_results[variable.id] = variable_results[variable.id][-(int(sim.number_of_points) + 1):]
 
     # log action
-    log.algorithm = alg_kisao_id
+    log.algorithm = exec_kisao_id
     log.simulator_details = {
         'method': 'BoolNet::generateTimeSeries',
         'arguments': simulation_method_args,
