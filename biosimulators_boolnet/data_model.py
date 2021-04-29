@@ -9,6 +9,7 @@ BoolNet methods and their arguments
 
 from biosimulators_utils.data_model import ValueType
 from rpy2.robjects.vectors import FloatVector, ListVector  # noqa: F401
+import collections
 
 
 def transform_noise_level(value, model):
@@ -85,8 +86,8 @@ def transform_gene_probabilities(dict_value, model):
     return FloatVector([dict_value[species_id] for species_id in species_ids])
 
 
-KISAO_METHOD_ARGUMENTS_MAP = {
-    'KISAO_0000449': {
+KISAO_METHOD_ARGUMENTS_MAP = collections.OrderedDict([
+    ('KISAO_0000449', {
         'type': 'synchronous',
         'name': 'synchronous',
         'parameters': {
@@ -104,9 +105,9 @@ KISAO_METHOD_ARGUMENTS_MAP = {
                 'targets': r'^/sbml:sbml/sbml:model/qual:listOfQualitativeSpecies/qual:qualitativeSpecies(\[.*?\])?(/@level)?$'
             },
         ],
-    },
+    }),
 
-    'KISAO_0000450': {
+    ('KISAO_0000450', {
         'type': 'asynchronous',
         'name': 'asynchronous',
         'parameters': {
@@ -132,9 +133,9 @@ KISAO_METHOD_ARGUMENTS_MAP = {
                 'targets': r'^/sbml:sbml/sbml:model/qual:listOfQualitativeSpecies/qual:qualitativeSpecies(\[.*?\])?(/@level)?$'
             },
         ],
-    },
+    }),
 
-    'KISAO_0000573': {
+    ('KISAO_0000573', {
         'type': 'probabilistic',
         'name': 'probabilistic',
         'parameters': {
@@ -152,5 +153,5 @@ KISAO_METHOD_ARGUMENTS_MAP = {
                 'targets': r'^/sbml:sbml/sbml:model/qual:listOfQualitativeSpecies/qual:qualitativeSpecies(\[.*?\])?(/@level)?$'
             },
         ],
-    },
-}
+    }),
+])

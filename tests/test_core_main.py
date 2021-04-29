@@ -18,6 +18,7 @@ from biosimulators_utils.simulator.specs import gen_algorithms_from_specs
 from biosimulators_utils.sedml import data_model as sedml_data_model
 from biosimulators_utils.sedml.io import SedmlSimulationWriter
 from biosimulators_utils.sedml.utils import append_all_nested_children_to_doc
+from kisao.exceptions import AlgorithmCannotBeSubstitutedException
 from unittest import mock
 import datetime
 import dateutil.tz
@@ -126,8 +127,8 @@ class CliTestCase(unittest.TestCase):
         json.dumps(log_data)
 
         # error handling: invalid algorithm
-        task.simulation.algorithm.kisao_id = 'KISAO_0000001'
-        with self.assertRaises(NotImplementedError):
+        task.simulation.algorithm.kisao_id = 'KISAO_0000019'
+        with self.assertRaises(AlgorithmCannotBeSubstitutedException):
             core.exec_sed_task(task, variables)
 
     def test_exec_sedml_docs_in_combine_archive_successfully(self):

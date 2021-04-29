@@ -17,7 +17,9 @@ from biosimulators_utils.sedml import validation
 from biosimulators_utils.sedml.data_model import (Task, ModelLanguage, ModelAttributeChange,  # noqa: F401
                                                   UniformTimeCourseSimulation, Variable)
 from biosimulators_utils.sedml.exec import exec_sed_doc
+from biosimulators_utils.simulator.utils import get_algorithm_substitution_policy
 from biosimulators_utils.utils.core import raise_errors_warnings
+from kisao.utils import get_preferred_substitute_algorithm_by_ids
 from rpy2.robjects.vectors import StrVector
 import functools
 import numpy
@@ -92,7 +94,7 @@ def exec_sed_task(task, variables, log=None):
                           error_summary='Changes for model `{}` are invalid.'.format(model.id))
     raise_errors_warnings(validation.validate_simulation_type(task.simulation, (UniformTimeCourseSimulation, )),
                           error_summary='{} `{}` is not supported.'.format(sim.__class__.__name__, sim.id))
-    raise_errors_warnings(validation.validate_simulation(task.simulation),
+    raise_errors_warnings(*validation.validate_simulation(task.simulation),
                           error_summary='Simulation `{}` is invalid.'.format(sim.id))
     raise_errors_warnings(validate_time_course(task.simulation),
                           error_summary='Simulation `{}` is invalid.'.format(sim.id))
@@ -121,20 +123,16 @@ def exec_sed_task(task, variables, log=None):
 
     # Load the algorithm specified by :obj:`task.simulation.algorithm.kisao_id`
     alg_kisao_id = sim.algorithm.kisao_id
-    alg = KISAO_METHOD_ARGUMENTS_MAP.get(alg_kisao_id, None)
-    if alg is None:
-        raise NotImplementedError("".join([
-            "Algorithm with KiSAO id '{}' is not supported. ".format(alg_kisao_id),
-            "Algorithm must have one of the following KiSAO ids:\n  - {}".format('\n  - '.join(
-                '{}: {}'.format(kisao_id, alg['name'])
-                for kisao_id, alg in KISAO_METHOD_ARGUMENTS_MAP.items())),
-        ]))
-
+    exec_kisao_id = get_preferred_substitute_algorithm_by_ids(
+        alg_kisao_id, KISAO_METHOD_ARGUMENTS_MAP.keys(),
+        substitution_policy=get_algorithm_substitution_policy())
+    alg = KISAO_METHOD_ARGUMENTS_MAP[exec_kisao_id]
     simulation_method_args['type'] = StrVector([alg['type']])
 
     # Apply the algorithm parameter changes specified by `simulation.algorithm.parameter_changes`
-    for change in sim.algorithm.changes:
-        set_simulation_method_arg(model, alg_kisao_id, change, simulation_method_args)
+    if exec_kisao_id == alg_kisao_id:
+        for change in sim.algorithm.changes:
+            set_simulation_method_arg(model, alg_kisao_id, change, simulation_method_args)
 
     # validate that BoolNet can produce the desired variables of the desired data generators
     validate_data_generator_variables(variables, alg_kisao_id)
