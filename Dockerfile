@@ -9,7 +9,7 @@ LABEL \
     org.opencontainers.image.authors="BioSimulators Team <info@biosimulators.org>" \
     org.opencontainers.image.vendor="BioSimulators Team" \
     \
-    base_image="python:3.7.9-slim-buster" \
+    base_image="python:3.9-slim-buster" \
     version="${VERSION}" \
     software="BoolNet" \
     software.version="${SIMULATOR_VERSION}" \
