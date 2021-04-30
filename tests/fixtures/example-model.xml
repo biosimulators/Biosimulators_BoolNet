@@ -1,31 +1,6 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" layout:required="false" level="3" qual:required="true" xmlns:layout="http://www.sbml.org/sbml/level3/version1/layout/version1" version="1" xmlns:qual="http://www.sbml.org/sbml/level3/version1/qual/version1">
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" level="3" qual:required="true" version="1" xmlns:qual="http://www.sbml.org/sbml/level3/version1/qual/version1">
   <model id="model_id">
-
-    <layout:listOfLayouts xmlns:layout="http://www.sbml.org/sbml/level3/version1/layout/version1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-      <layout:layout layout:id="layout">
-        <layout:listOfSpeciesGlyphs>
-          <layout:speciesGlyph layout:species="G0" layout:id="glyph_G0">
-            <layout:boundingBox>
-              <layout:position layout:x="297" layout:y="138"/>
-              <layout:dimensions layout:height="25" layout:width="45"/>
-            </layout:boundingBox>
-          </layout:speciesGlyph>
-          <layout:speciesGlyph layout:species="G1" layout:id="glyph_G1">
-            <layout:boundingBox>
-              <layout:position layout:x="250" layout:y="270"/>
-              <layout:dimensions layout:height="25" layout:width="45"/>
-            </layout:boundingBox>
-          </layout:speciesGlyph>
-          <layout:speciesGlyph layout:species="G2" layout:id="glyph_G2">
-            <layout:boundingBox>
-              <layout:position layout:x="439" layout:y="271"/>
-              <layout:dimensions layout:height="25" layout:width="45"/>
-            </layout:boundingBox>
-          </layout:speciesGlyph>
-        </layout:listOfSpeciesGlyphs>
-      </layout:layout>
-    </layout:listOfLayouts>
 
     <qual:listOfQualitativeSpecies xmlns:qual="http://www.sbml.org/sbml/level3/version1/qual/version1">
       <qual:qualitativeSpecies qual:maxLevel="1" qual:compartment="comp1" qual:constant="true" qual:id="G0"/>
