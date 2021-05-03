@@ -18,6 +18,7 @@ from biosimulators_utils.simulator.specs import gen_algorithms_from_specs
 from biosimulators_utils.sedml import data_model as sedml_data_model
 from biosimulators_utils.sedml.io import SedmlSimulationWriter
 from biosimulators_utils.sedml.utils import append_all_nested_children_to_doc
+from biosimulators_utils.warnings import BioSimulatorsWarning
 from kisao.exceptions import AlgorithmCannotBeSubstitutedException
 from unittest import mock
 import datetime
@@ -130,6 +131,30 @@ class CliTestCase(unittest.TestCase):
         task.simulation.algorithm.kisao_id = 'KISAO_0000019'
         with self.assertRaises(AlgorithmCannotBeSubstitutedException):
             core.exec_sed_task(task, variables)
+
+        task.simulation.algorithm.kisao_id = 'KISAO_0000449'
+        task.simulation.algorithm.changes = [
+            sedml_data_model.AlgorithmParameterChange(
+                kisao_id='KISAO_0000572',
+                new_value='not a number',
+            ),
+        ]
+        with mock.patch.dict('os.environ', {'ALGORITHM_SUBSTITUTION_POLICY': 'SAME_METHOD'}):
+            with self.assertRaisesRegex(ValueError, 'is not a valid'):
+                core.exec_sed_task(task, variables)
+
+        with mock.patch.dict('os.environ', {'ALGORITHM_SUBSTITUTION_POLICY': 'SIMILAR_VARIABLES'}):
+            with self.assertWarnsRegex(BioSimulatorsWarning, 'Unsuported value'):
+                core.exec_sed_task(task, variables)
+
+        task.simulation.algorithm.changes[0].kisao_id = 'KISAO_9999999'
+        with mock.patch.dict('os.environ', {'ALGORITHM_SUBSTITUTION_POLICY': 'SAME_METHOD'}):
+            with self.assertRaisesRegex(NotImplementedError, 'is not supported'):
+                core.exec_sed_task(task, variables)
+
+        with mock.patch.dict('os.environ', {'ALGORITHM_SUBSTITUTION_POLICY': 'SIMILAR_VARIABLES'}):
+            with self.assertWarnsRegex(BioSimulatorsWarning, 'Unsuported algorithm parameter'):
+                core.exec_sed_task(task, variables)
 
     def test_exec_sedml_docs_in_combine_archive_successfully(self):
         doc, archive_filename = self._build_combine_archive()
