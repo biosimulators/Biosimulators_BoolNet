@@ -139,7 +139,7 @@ class CliTestCase(unittest.TestCase):
                 new_value='not a number',
             ),
         ]
-        with mock.patch.dict('os.environ', {'ALGORITHM_SUBSTITUTION_POLICY': 'SAME_METHOD'}):
+        with mock.patch.dict('os.environ', {'ALGORITHM_SUBSTITUTION_POLICY': 'NONE'}):
             with self.assertRaisesRegex(ValueError, 'is not a valid'):
                 core.exec_sed_task(task, variables)
 
@@ -148,7 +148,7 @@ class CliTestCase(unittest.TestCase):
                 core.exec_sed_task(task, variables)
 
         task.simulation.algorithm.changes[0].kisao_id = 'KISAO_9999999'
-        with mock.patch.dict('os.environ', {'ALGORITHM_SUBSTITUTION_POLICY': 'SAME_METHOD'}):
+        with mock.patch.dict('os.environ', {'ALGORITHM_SUBSTITUTION_POLICY': 'NONE'}):
             with self.assertRaisesRegex(NotImplementedError, 'is not supported'):
                 core.exec_sed_task(task, variables)
 
