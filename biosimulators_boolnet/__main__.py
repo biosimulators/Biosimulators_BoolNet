@@ -12,8 +12,8 @@ from .core import exec_sedml_docs_in_combine_archive
 from .utils import get_boolnet_version
 from biosimulators_utils.simulator.cli import build_cli
 
-App = build_cli('bionetgen', __version__,
-                'BioNetGen', get_boolnet_version(), 'https://sysbio.uni-ulm.de/?Software:BoolNet',
+App = build_cli('boolnet', __version__,
+                'BoolNet', get_boolnet_version(), 'https://sysbio.uni-ulm.de/?Software:BoolNet',
                 exec_sedml_docs_in_combine_archive)
 
 

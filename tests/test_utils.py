@@ -23,7 +23,7 @@ class UtilsTestCase(unittest.TestCase):
         pkg = get_boolnet()
         self.assertRegex(pkg.__version__, r'^\d+\.\d+\.\d+$')
 
-    def test_get_bionetgen_version(self):
+    def test_get_boolnet_version(self):
         self.assertRegex(get_boolnet_version(), r'^\d+\.\d+\.\d+$')
 
     def test_validate_time_course(self):

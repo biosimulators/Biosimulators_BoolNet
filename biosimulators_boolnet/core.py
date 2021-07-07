@@ -1,4 +1,4 @@
-""" BioSimulators-compliant command-line interface to the `BioNetGen <https://bionetgen.org/>`_ simulation program.
+""" BioSimulators-compliant command-line interface to the `BoolNet <https://sysbio.uni-ulm.de/?Software:BoolNet>`_ simulation program.
 
 :Author: Jonathan Karr <karr@mssm.edu>
 :Date: 2021-01-05
