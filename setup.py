@@ -61,7 +61,7 @@ setuptools.setup(
     ],
     entry_points={
         'console_scripts': [
-            'boolnet = biosimulators_boolnet.__main__:main',
+            'biosimulators-boolnet = biosimulators_boolnet.__main__:main',
         ],
     },
 )

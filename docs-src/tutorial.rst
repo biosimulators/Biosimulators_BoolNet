@@ -34,7 +34,7 @@ The command-line program can be used to execute COMBINE/OMEX archives that descr
 
 .. code-block:: text
 
-    usage: boolnet [-h] [-d] [-q] -i ARCHIVE [-o OUT_DIR] [-v]
+    usage: biosimulators-boolnet [-h] [-d] [-q] -i ARCHIVE [-o OUT_DIR] [-v]
 
     BioSimulators-compliant command-line interface to the BoolNet <https://sysbio.uni-ulm.de/?Software:BoolNet> simulation program.
 
@@ -53,7 +53,7 @@ For example, the following command could be used to execute the simulations desc
 
 .. code-block:: text
 
-    boolnet -i ./modeling-study.omex -o ./
+    biosimulators-boolnet -i ./modeling-study.omex -o ./
 
 
 Docker image with a command-line entrypoint

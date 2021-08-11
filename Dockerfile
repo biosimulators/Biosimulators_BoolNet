@@ -29,5 +29,5 @@ ENV VERBOSE=0 \
     MPLBACKEND=PDF
 
 # Entrypoint
-ENTRYPOINT ["boolnet"]
+ENTRYPOINT ["biosimulators-boolnet"]
 CMD []

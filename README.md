@@ -28,7 +28,7 @@ docker pull ghcr.io/biosimulators/boolnet
 
 ### Local usage
 ```
-usage: boolnet [-h] [-d] [-q] -i ARCHIVE [-o OUT_DIR] [-v]
+usage: biosimulators-boolnet [-h] [-d] [-q] -i ARCHIVE [-o OUT_DIR] [-v]
 
 BioSimulators-compliant command-line interface to the BoolNet simulation program <https://sysbio.uni-ulm.de/?Software:BoolNet>.
 
