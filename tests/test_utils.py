@@ -1,4 +1,5 @@
-from biosimulators_boolnet.utils import (install_boolnet, get_boolnet, get_boolnet_version,
+from biosimulators_boolnet import get_simulator_version
+from biosimulators_boolnet.utils import (install_boolnet, get_boolnet,
                                          validate_time_course, validate_data_generator_variables,
                                          get_variable_target_x_path_keys,
                                          set_simulation_method_arg, get_variable_results)
@@ -16,15 +17,15 @@ class UtilsTestCase(unittest.TestCase):
     def test_install_boolnet(self):
         install_boolnet()
 
-        with mock.patch.dict(os.environ, {'BOOLNET_VERSION': get_boolnet_version()}):
+        with mock.patch.dict(os.environ, {'BOOLNET_VERSION': get_simulator_version()}):
             install_boolnet()
 
     def test_get_boolnet(self):
         pkg = get_boolnet()
         self.assertRegex(pkg.__version__, r'^\d+\.\d+\.\d+$')
 
-    def test_get_boolnet_version(self):
-        self.assertRegex(get_boolnet_version(), r'^\d+\.\d+\.\d+$')
+    def test_get_simulator_version(self):
+        self.assertRegex(get_simulator_version(), r'^\d+\.\d+\.\d+$')
 
     def test_validate_time_course(self):
         sim = UniformTimeCourseSimulation(initial_time=0, output_start_time=0, output_end_time=100, number_of_points=100)

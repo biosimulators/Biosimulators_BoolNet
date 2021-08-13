@@ -22,7 +22,6 @@ import re
 __all__ = [
     'install_boolnet',
     'get_boolnet',
-    'get_boolnet_version',
     'validate_time_course',
     'validate_data_generator_variables',
     'get_variable_target_x_path_keys',
@@ -73,16 +72,6 @@ def get_boolnet():
         :obj:`rpy2.robjects.packages.InstalledSTPackage`: BoolNet R package
     """
     return importr('BoolNet')
-
-
-def get_boolnet_version():
-    """ Get the version of BoolNet
-
-    Returns:
-        :obj:`str`: version
-    """
-    pkg = get_boolnet()
-    return pkg.__version__
 
 
 def validate_time_course(simulation):
