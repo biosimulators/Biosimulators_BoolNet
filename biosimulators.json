@@ -17,6 +17,10 @@
     },
     "operatingSystemType": "Linux"
   },
+  "pythonApi": {
+    "package": "biosimulators-boolnet",
+    "module": "biosimulators_boolnet"
+  },
   "authors": [{
       "firstName": "Christoph",
       "middleName": null,

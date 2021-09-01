@@ -47,3 +47,8 @@ RUN apt-get update -y \
         libxml2-dev \
     && apt-get autoremove -y \
     && rm -rf /var/lib/apt/lists/*
+
+# fonts for matplotlib
+RUN apt-get update -y \
+    && apt-get install -y --no-install-recommends libfreetype6 \
+    && rm -rf /var/lib/apt/lists/*
