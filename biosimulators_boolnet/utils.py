@@ -158,11 +158,12 @@ def get_variable_target_x_path_keys(variables, model_source):
         :obj:`dict`: dictionary that maps each variable target to the BoolNet key
             of the corresponding qualitative species
     """
-    namespaces = biosimulators_utils.xml.utils.get_namespaces_for_xml_doc(lxml.etree.parse(model_source))
+    model_etree = lxml.etree.parse(model_source)
+    namespaces = biosimulators_utils.xml.utils.get_namespaces_for_xml_doc(model_etree)
 
-    target_x_paths_ids = biosimulators_utils.sedml.validation.validate_variable_xpaths(
+    target_x_paths_ids = biosimulators_utils.sedml.validation.validate_target_xpaths(
         variables,
-        model_source,
+        model_etree,
         attr={
             'namespace': {
                 'prefix': 'qual',
@@ -172,9 +173,9 @@ def get_variable_target_x_path_keys(variables, model_source):
         }
     )
 
-    target_x_paths_names = biosimulators_utils.sedml.validation.validate_variable_xpaths(
+    target_x_paths_names = biosimulators_utils.sedml.validation.validate_target_xpaths(
         variables,
-        model_source,
+        model_etree,
         attr={
             'namespace': {
                 'prefix': 'qual',
