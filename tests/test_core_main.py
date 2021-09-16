@@ -156,6 +156,172 @@ class CliTestCase(unittest.TestCase):
             with self.assertWarnsRegex(BioSimulatorsWarning, 'Unsuported algorithm parameter'):
                 core.exec_sed_task(task, variables)
 
+    def test_exec_sed_task_with_model_changes(self):
+        task = sedml_data_model.Task(
+            model=sedml_data_model.Model(
+                source=os.path.join(os.path.dirname(__file__), 'fixtures', 'irons.xml'),
+                language=sedml_data_model.ModelLanguage.SBML.value,
+            ),
+            simulation=sedml_data_model.UniformTimeCourseSimulation(
+                initial_time=0,
+                output_start_time=0,
+                output_end_time=100,
+                number_of_points=100,
+                algorithm=sedml_data_model.Algorithm(
+                    kisao_id='KISAO_0000449',
+                ),
+            ),
+        )
+        model = task.model
+        sim = task.simulation
+
+        variable_ids = [
+            'Cln3', 'SMBF', 'Cln2', 'Clb5', 'Yhp1', 'Clb2', 'SFF', 'Cdc20', 'FEAR',
+            'MEN', 'Cdc14', 'Swi5', 'CKI', 'Cdh1', 'S', 'B', 'M', 'CD',
+        ]
+
+        variables = []
+        for variable_id in variable_ids:
+            variables.append(sedml_data_model.Variable(
+                id=variable_id,
+                target="/sbml:sbml/sbml:model/qual:listOfQualitativeSpecies/qual:qualitativeSpecies[@qual:id='{}']/@level".format(
+                    variable_id),
+                target_namespaces=self.NAMESPACES,
+                task=task,
+            ))
+
+        preprocessed_task = core.preprocess_sed_task(task, variables)
+
+        model.changes = []
+        results, _ = core.exec_sed_task(task, variables, preprocessed_task=preprocessed_task)
+
+        model.changes = [
+            sedml_data_model.ModelAttributeChange(
+                target="/sbml:sbml/sbml:model/qual:listOfQualitativeSpecies/qual:qualitativeSpecies[@qual:id='Cln2']/@qual:initialLevel",
+                target_namespaces=self.NAMESPACES,
+                new_value=0,
+            ),
+            sedml_data_model.RemoveElementModelChange(
+                target="/sbml:sbml/sbml:model/qual:listOfTransitions/qual:transition[@qual:id='tr_Cln2']",
+                target_namespaces=self.NAMESPACES,
+            ),
+        ]
+        preprocessed_task = core.preprocess_sed_task(task, variables)
+        results2, _ = core.exec_sed_task(task, variables, preprocessed_task=preprocessed_task)
+
+        model.changes = [
+            sedml_data_model.ModelAttributeChange(
+                target="/sbml:sbml/sbml:model/qual:listOfQualitativeSpecies/qual:qualitativeSpecies[@qual:id='Cln3']/@qual:initialLevel",
+                target_namespaces=self.NAMESPACES,
+                new_value=0,
+            ),
+            sedml_data_model.RemoveElementModelChange(
+                target="/sbml:sbml/sbml:model/qual:listOfTransitions/qual:transition[@qual:id='tr_Cln3']",
+                target_namespaces=self.NAMESPACES,
+            ),
+        ]
+        preprocessed_task = core.preprocess_sed_task(task, variables)
+        results3, _ = core.exec_sed_task(task, variables, preprocessed_task=preprocessed_task)
+
+        end_results = {}
+        end_results_2 = {}
+        end_results_3 = {}
+        end_results_minus_1 = {}
+        end_results_minus_1_2 = {}
+        end_results_minus_1_3 = {}
+        for variable_id in variable_ids:
+            end_results[variable_id] = results[variable_id][-1].tolist()
+            end_results_2[variable_id] = results2[variable_id][-1].tolist()
+            end_results_3[variable_id] = results3[variable_id][-1].tolist()
+
+            end_results_minus_1[variable_id] = results[variable_id][-2].tolist()
+            end_results_minus_1_2[variable_id] = results2[variable_id][-2].tolist()
+            end_results_minus_1_3[variable_id] = results3[variable_id][-2].tolist()
+
+        self.assertNotEqual(end_results_minus_1, end_results)
+        self.assertNotEqual(end_results_minus_1_2, end_results_2)
+        self.assertEqual(end_results_minus_1_3, end_results_3)
+
+    # Fails because BoolNet doesn't capture initial conditions
+    @unittest.expectedFailure
+    def test_exec_sed_task_multistep_simulation_using_model_changes(self):
+        task = sedml_data_model.Task(
+            model=sedml_data_model.Model(
+                source=os.path.join(os.path.dirname(__file__), 'fixtures', 'BIOMD0000000562_url.xml'),
+                language=sedml_data_model.ModelLanguage.SBML.value,
+            ),
+            simulation=sedml_data_model.UniformTimeCourseSimulation(
+                initial_time=0,
+                output_start_time=0,
+                output_end_time=10,
+                number_of_points=10,
+                algorithm=sedml_data_model.Algorithm(
+                    kisao_id='KISAO_0000450',
+                ),
+            ),
+        )
+        model = task.model
+        sim = task.simulation
+
+        variable_ids = [
+            'erk', 'ikk', 'gsk3', 'nfkb', 'ask1', 'ras', 'egf', 'egfr', 'traf2', 'ikb', 'map3k1', 'tnfr',
+            'ap1', 'mek', 'mkk4', 'ex', 'tnfa', 'raf1', 'map3k7', 'mkk7', 'cjun', 'sos', 'jnk', 'pi3k',
+            'p38', 'akt', 'ph', 'nik'
+        ]
+
+        variables = []
+        for variable_id in variable_ids:
+            model.changes.append(sedml_data_model.ModelAttributeChange(
+                target="/sbml:sbml/sbml:model/qual:listOfQualitativeSpecies/qual:qualitativeSpecies[@qual:id='{}']/@initialLevel".format(
+                    variable_id),
+                target_namespaces=self.NAMESPACES,
+                new_value=None,
+            ))
+            variables.append(sedml_data_model.Variable(
+                id=variable_id,
+                target="/sbml:sbml/sbml:model/qual:listOfQualitativeSpecies/qual:qualitativeSpecies[@qual:id='{}']/@level".format(
+                    variable_id),
+                target_namespaces=self.NAMESPACES,
+                task=task,
+            ))
+
+        preprocessed_task = core.preprocess_sed_task(task, variables)
+
+        model.changes = []
+        results, _ = core.exec_sed_task(task, variables, preprocessed_task=preprocessed_task)
+        self.assertEqual(
+            results['nik'][0:int(sim.number_of_points / 2 + 1)].shape,
+            results['nik'][-int(sim.number_of_points / 2 + 1):].shape,
+        )
+        with self.assertRaises(AssertionError):
+            numpy.testing.assert_allclose(
+                results['nik'][0:int(sim.number_of_points / 2 + 1)],
+                results['nik'][-int(sim.number_of_points / 2 + 1):],
+            )
+
+        sim.output_end_time = sim.output_end_time / 2
+        sim.number_of_points = int(sim.number_of_points / 2)
+        preprocessed_task = core.preprocess_sed_task(task, variables)
+        results2, _ = core.exec_sed_task(task, variables, preprocessed_task=preprocessed_task)
+        numpy.testing.assert_allclose(
+            results2['nik'],
+            results['nik'][0:sim.number_of_points + 1],
+        )
+
+        for variable_id in variable_ids:
+            model.changes.append(sedml_data_model.ModelAttributeChange(
+                target="/sbml:sbml/sbml:model/qual:listOfQualitativeSpecies/qual:qualitativeSpecies[@qual:id='{}']/@initialLevel".format(
+                    variable_id),
+                target_namespaces=self.NAMESPACES,
+                new_value=results2[variable_id][-1],
+            ))
+
+        results3, _ = core.exec_sed_task(task, variables, preprocessed_task=preprocessed_task)
+        numpy.testing.assert_allclose(
+            results3['nik'],
+            results['nik'][-(sim.number_of_points + 1):],
+        )
+
     def test_exec_sedml_docs_in_combine_archive_successfully(self):
         doc, archive_filename = self._build_combine_archive()
 

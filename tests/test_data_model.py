@@ -25,10 +25,11 @@ class DataModelTestCase(unittest.TestCase):
 
                 self.assertEqual(param_props['type'], param_specs['type'])
 
-            for var_target_specs in alg_specs['dependentVariableTargetPatterns']:
-                matches = False
-                for var_target_props in alg_props['variable_targets']:
-                    if re.match(var_target_props['targets'], var_target_specs['targetPattern']):
-                        matches = True
-                        break
-                self.assertTrue(matches)
+            for var_target_specs in alg_specs['outputVariablePatterns']:
+                if 'target' in var_target_specs:
+                    matches = False
+                    for var_target_props in alg_props['variable_targets']:
+                        if re.match(var_target_props['targets'], var_target_specs['target']['value']):
+                            matches = True
+                            break
+                    self.assertTrue(matches)

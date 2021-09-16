@@ -15,7 +15,7 @@ from rpy2.robjects.packages import importr, isinstalled, InstalledSTPackage  # n
 from rpy2.robjects.vectors import StrVector, ListVector  # noqa: F401
 import biosimulators_utils.sedml.validation
 import biosimulators_utils.xml.utils
-import lxml
+import lxml.etree  # noqa: F401
 import numpy
 import re
 
@@ -69,7 +69,7 @@ def get_boolnet():
     """ Get the BoolNet R package
 
     Returns:
-        :obj:`rpy2.robjects.packages.InstalledSTPackage`: BoolNet R package
+        :obj:`InstalledSTPackage`: BoolNet R package
     """
     return importr('BoolNet')
 
@@ -147,18 +147,17 @@ def validate_data_generator_variables(variables, algorithm_kisao_id):
         raise ValueError(msg)
 
 
-def get_variable_target_x_path_keys(variables, model_source):
+def get_variable_target_x_path_keys(variables, model_etree):
     """ Get the BoolNet key for each XML XPath target of a SED-ML variable
 
     Args:
         variables (:obj:`list` of :obj:`Variable`): variables of data generators
-        model_source (:obj:`str`): path to model
+        model_etree (:obj:`lxml.etree._ElementTree`): element tree for model
 
     Returns:
         :obj:`dict`: dictionary that maps each variable target to the BoolNet key
             of the corresponding qualitative species
     """
-    model_etree = lxml.etree.parse(model_source)
     namespaces = biosimulators_utils.xml.utils.get_namespaces_for_xml_doc(model_etree)
 
     target_x_paths_ids = biosimulators_utils.sedml.validation.validate_target_xpaths(
