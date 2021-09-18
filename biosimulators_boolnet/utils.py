@@ -13,6 +13,7 @@ from biosimulators_utils.sedml.data_model import Variable, Symbol  # noqa: F401
 from biosimulators_utils.utils.core import validate_str_value, parse_value
 from rpy2.robjects.packages import importr, isinstalled, InstalledSTPackage  # noqa: F401
 from rpy2.robjects.vectors import StrVector, ListVector  # noqa: F401
+import biosimulators_utils.model_lang.sbml.utils
 import biosimulators_utils.sedml.validation
 import biosimulators_utils.xml.utils
 import lxml.etree  # noqa: F401
@@ -159,14 +160,15 @@ def get_variable_target_x_path_keys(variables, model_etree):
             of the corresponding qualitative species
     """
     namespaces = biosimulators_utils.xml.utils.get_namespaces_for_xml_doc(model_etree)
+    sbml_qual_prefix, sbml_qual_uri = biosimulators_utils.model_lang.sbml.utils.get_package_namespace('qual', namespaces)
 
     target_x_paths_ids = biosimulators_utils.sedml.validation.validate_target_xpaths(
         variables,
         model_etree,
         attr={
             'namespace': {
-                'prefix': 'qual',
-                'uri': namespaces['qual'],
+                'prefix': sbml_qual_prefix,
+                'uri': sbml_qual_uri,
             },
             'name': 'id',
         }
@@ -177,8 +179,8 @@ def get_variable_target_x_path_keys(variables, model_etree):
         model_etree,
         attr={
             'namespace': {
-                'prefix': 'qual',
-                'uri': namespaces['qual'],
+                'prefix': sbml_qual_prefix,
+                'uri': sbml_qual_uri,
             },
             'name': 'name',
         }

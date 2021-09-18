@@ -72,27 +72,28 @@ class UtilsTestCase(unittest.TestCase):
     def test_get_variable_target_x_path_keys(self):
         with mock.patch('lxml.etree.parse', return_value=None):
             with mock.patch('biosimulators_utils.xml.utils.get_namespaces_for_xml_doc', return_value={'qual': None}):
-                with mock.patch('biosimulators_utils.sedml.validation.validate_target_xpaths', side_effect=[{'x': 'X'}, {'x': 'eX'}]):
-                    self.assertEqual(get_variable_target_x_path_keys([Variable(target='x')], None), {'x': 'eX'})
+                with mock.patch('biosimulators_utils.model_lang.sbml.utils.get_package_namespace', return_value=('qual', None)):
+                    with mock.patch('biosimulators_utils.sedml.validation.validate_target_xpaths', side_effect=[{'x': 'X'}, {'x': 'eX'}]):
+                        self.assertEqual(get_variable_target_x_path_keys([Variable(target='x')], None), {'x': 'eX'})
 
-                with mock.patch('biosimulators_utils.sedml.validation.validate_target_xpaths', side_effect=[{'x': 'X'}, {'x': None}]):
-                    self.assertEqual(get_variable_target_x_path_keys([Variable(target='x')], None), {'x': 'X'})
+                    with mock.patch('biosimulators_utils.sedml.validation.validate_target_xpaths', side_effect=[{'x': 'X'}, {'x': None}]):
+                        self.assertEqual(get_variable_target_x_path_keys([Variable(target='x')], None), {'x': 'X'})
 
-                with mock.patch('biosimulators_utils.sedml.validation.validate_target_xpaths', side_effect=[{'x': 'X'}, {'x': 'e/X'}]):
-                    self.assertEqual(get_variable_target_x_path_keys([Variable(target='x')], None), {'x': 'e_X'})
+                    with mock.patch('biosimulators_utils.sedml.validation.validate_target_xpaths', side_effect=[{'x': 'X'}, {'x': 'e/X'}]):
+                        self.assertEqual(get_variable_target_x_path_keys([Variable(target='x')], None), {'x': 'e_X'})
 
-                with mock.patch('biosimulators_utils.sedml.validation.validate_target_xpaths', side_effect=[
-                    {'x': 'X', 'y': 'Y'},
-                    {'x': 'name-X', 'y': 'name-Y'},
-                ]):
-                    get_variable_target_x_path_keys([Variable(target='x'), Variable(target='y')], None)
-
-                with mock.patch('biosimulators_utils.sedml.validation.validate_target_xpaths', side_effect=[
-                    {'x': 'X', 'y': 'Y'},
-                    {'x': 'name', 'y': 'name'},
-                ]):
-                    with self.assertRaisesRegex(ValueError, 'must generate a unique key'):
+                    with mock.patch('biosimulators_utils.sedml.validation.validate_target_xpaths', side_effect=[
+                        {'x': 'X', 'y': 'Y'},
+                        {'x': 'name-X', 'y': 'name-Y'},
+                    ]):
                         get_variable_target_x_path_keys([Variable(target='x'), Variable(target='y')], None)
+
+                    with mock.patch('biosimulators_utils.sedml.validation.validate_target_xpaths', side_effect=[
+                        {'x': 'X', 'y': 'Y'},
+                        {'x': 'name', 'y': 'name'},
+                    ]):
+                        with self.assertRaisesRegex(ValueError, 'must generate a unique key'):
+                            get_variable_target_x_path_keys([Variable(target='x'), Variable(target='y')], None)
 
     def test_set_simulation_method_arg(self):
         class Model(list):
