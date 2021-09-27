@@ -17,6 +17,12 @@
     },
     "operatingSystemType": "Linux"
   },
+  "cli": {
+    "packageRepository": "PyPI",
+    "package": "biosimulators-boolnet",
+    "command": "biosimulators-boolnet",
+    "installationInstructions": "https://docs.biosimulators.org/Biosimulators_BoolNet/installation.html"
+  },
   "pythonApi": {
     "package": "biosimulators-boolnet",
     "module": "biosimulators_boolnet",
