@@ -81,8 +81,8 @@
       "title": "BoolNet—an R package for generation, reconstruction and analysis of Boolean networks",
       "authors": "Christoph Müssel, Martin Hopfensitz & Hans A. Kestler",
       "journal": "Bioinformatics",
-      "volume": 26,
-      "issue": 10,
+      "volume": "26",
+      "issue": "10",
       "pages": "1378-1380",
       "year": 2010,
       "identifiers": [{
@@ -196,8 +196,8 @@
         "title": "BoolNet—an R package for generation, reconstruction and analysis of Boolean networks",
         "authors": "Christoph Müssel, Martin Hopfensitz & Hans A. Kestler",
         "journal": "Bioinformatics",
-        "volume": 26,
-        "issue": 10,
+        "volume": "26",
+        "issue": "10",
         "pages": "1378-1380",
         "year": 2010,
         "identifiers": [{
@@ -320,8 +320,8 @@
         "title": "BoolNet—an R package for generation, reconstruction and analysis of Boolean networks",
         "authors": "Christoph Müssel, Martin Hopfensitz & Hans A. Kestler",
         "journal": "Bioinformatics",
-        "volume": 26,
-        "issue": 10,
+        "volume": "26",
+        "issue": "10",
         "pages": "1378-1380",
         "year": 2010,
         "identifiers": [{
@@ -431,8 +431,8 @@
         "title": "BoolNet—an R package for generation, reconstruction and analysis of Boolean networks",
         "authors": "Christoph Müssel, Martin Hopfensitz & Hans A. Kestler",
         "journal": "Bioinformatics",
-        "volume": 26,
-        "issue": 10,
+        "volume": "26",
+        "issue": "10",
         "pages": "1378-1380",
         "year": 2010,
         "identifiers": [{
