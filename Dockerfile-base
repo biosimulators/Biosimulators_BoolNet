@@ -17,6 +17,12 @@ LABEL \
 # Install requirements
 RUN apt-get update -y \
     && apt-get install -y --no-install-recommends \
+        gnupg \
+        software-properties-common \
+    && apt-key adv --keyserver keyserver.ubuntu.com --recv-keys B8F25A8A73EACF41 \
+    && add-apt-repository 'deb http://cloud.r-project.org/bin/linux/debian buster-cran40/' \
+    && apt-get update -y \
+    && apt-get install -y --no-install-recommends \
         r-base \
         build-essential \
         gcc \
@@ -28,14 +34,14 @@ RUN apt-get update -y \
         libssl-dev \
         libxml2 \
         libxml2-dev \
-    \
     && Rscript \
         -e "install.packages('devtools')" \
         -e "require(devtools)" \
         -e "install_version('BoolNet', version='${SIMULATOR_VERSION}')" \
         -e "require('BoolNet')" \
-    \
     && apt-get remove -y \
+        gnupg \
+        software-properties-common \
         build-essential \
         gcc \
         gfortran \
